@@ -1,0 +1,3 @@
+object/*.o
+checker
+push_swap

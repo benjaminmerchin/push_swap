@@ -1,0 +1,35 @@
+Visualisation de l'etat d'une liste :
+
+
+
+Configuration :
+av = 5
+spliter = 5 - 1 = 4 (tous les elements sont dans la pile a)
+size = 4
+|8|2|3|5|
+list[0] = 8
+list[1] = 2
+list[2] = 3 = list[spliter - 2]
+list[3] = 5 = list[spliter - 1]
+Si on souhaite inverser les deux premiers elemnts de a il faut que qu'il y ait au moins 2 elements sur a 
+=> donc sliter superieur ou egal a 2 => on ne fait rien si spliter inferieur a 2
+
+
+
+Configuration :
+av = 8
+size = 7
+On effectur l'operation pb 3 fois (on effectue juste spliter--)
+spliter = 4 (4 elemts dans a et 3 dans b)
+|8|2|3|5 | 6|1|4|
+
+
+list[0] = 8							a
+list[1] = 2							a
+list[2] = 3 = list[spliter - 2]		a
+list[3] = 5 = list[spliter - 1]		a
+
+list[4] = 6 = list[spliter]			b
+list[5] = 1 = list[size - 2]		b
+list[6] = 6 = list[size - 1]		b
+Si on souhaite inverser les deux 
