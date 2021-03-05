@@ -23,13 +23,111 @@ void	sa(t_data *data) // on souhaite inverser l'emplacement data_spliter - 1 ave
 	data->list[data->spliter - 2] = temp;
 }
 
-void	sb(t_data *data) // on souhaite inverser l'emplacement data_spliter - 1 avec data_spliter - 2
+void	sb(t_data *data) // on souhaite inverser l'emplacement data_spliter avec data_spliter + 1
 {
 	int temp;
 
+	if (data->spliter - data->size < 2)
+		return ;
+	temp = data->list[data->spliter];
+	data->list[data->spliter] = data->list[data->spliter + 1];
+	data->list[data->spliter + 1] = temp;
+}
+
+void	ss(t_data *data)
+{
+	sa(data);
+	sb(data);
+}
+
+void	pa(t_data *data)
+{
+	if (data->spliter < data->size)
+		data->spliter++;
+}
+
+void	pb(t_data *data)
+{
+	if (data->spliter > 0)
+		data->spliter--;
+}
+
+void	ra(t_data *data)
+{
+	int i;
+	int temp;
+	
+	i = data->spliter - 1;
 	if (data->spliter < 2)
 		return ;
-	temp = data->list[data->spliter - 1];
-	data->list[data->spliter - 1] = data->list[data->spliter - 2];
-	data->list[data->spliter - 2] = temp;
+	temp = data->list[i];
+	while (i > 0)
+	{
+		data->list[i] = data->list[i - 1];
+		i--;
+	}
+	data->list[i] = temp;
+}
+
+void	rb(t_data *data)
+{
+	int i;
+	int temp;
+	
+	i = data->spliter;
+	if (data->size - data->spliter < 2)
+		return ;
+	temp = data->list[i];
+	while (i < data->size - 1)
+	{
+		data->list[i] = data->list[i + 1];
+		i++;
+	}
+	data->list[i] = temp;
+}
+
+void	rr(t_data *data)
+{
+	ra(data);
+	rb(data);
+}
+
+void	rra(t_data *data)
+{
+	int i;
+	int temp;
+	
+	i = 0;
+	if (data->spliter < 2)
+		return ;
+	temp = data->list[0];
+	while (i < data->spliter - 1)
+	{
+		data->list[i] = data->list[i + 1];
+		i++;
+	}
+	data->list[i] = temp;
+}
+
+void	rrb(t_data *data)
+{
+	int i;
+	int temp;
+	
+	i = data->size - 1;
+	if (data->size - data->spliter < 2)
+		return ;
+	temp = data->list[i];
+	while (i > data->size - 1)
+	{
+		data->list[i] = data->list[i - 1];
+		i--;
+	}
+	data->list[i] = temp;
+}
+
+void	rrr(t_data *data)
+{
+	rra(data);
+	rrb(data);
 }
