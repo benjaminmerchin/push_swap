@@ -38,6 +38,7 @@ void			rrb(t_data *data);
 void			rrr(t_data *data);
 
 void			ft_putchar(char c);
+void			ft_putchar_fd(char c, int fd);
 int				ft_strlen(char *s);
 void			ft_putnbr(int n);
 int				ft_atoi(const char *str);

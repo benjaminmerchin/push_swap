@@ -118,7 +118,7 @@ void	rrb(t_data *data)
 	if (data->size - data->spliter < 2)
 		return ;
 	temp = data->list[i];
-	while (i > data->size - 1)
+	while (i > data->spliter)
 	{
 		data->list[i] = data->list[i - 1];
 		i--;
