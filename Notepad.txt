@@ -1,3 +1,16 @@
+Reflexions :
+Reprendre a 0 et travailler avec des listes chainees.
+Besoin de travailler avec un algorythme opti pour les longues listes et un autre pour les listes courtes, eventuellemet bruteforce.
+C'est plus long que ca en avait l'air au premier abord.
+Ne pas me rater sur le choix de l'algorythme, suivre les conseils, probablement un mix de quick sort et de merge sort
+
+Bonus faciles : (savoir a quoi ressemble le bareme des bonus avant en crash test, et retry avec les bonus)
+imprimer la liste avec -v
+couleurs pour les derniers mouvements avec -c
+eventuellement liste des operations que l'on peut afficher
+
+
+_____________________________________________________________________________________________________________
 Visualisation de l'etat d'une liste :
 
 
