@@ -12,26 +12,6 @@
 
 #include "header.h"
 
-void	print_state(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->size)
-	{
-		ft_putnbr(data->list[i]);
-		if (i == data->spliter - 1)
-			ft_putchar('|');
-		else
-			ft_putchar(' ');
-		i++;
-	}
-	ft_putchar('\t');
-	ft_putstr("spliter : ");
-	ft_putnbr(data->spliter);
-	ft_putchar('\n');
-}
-
 void	execute_instruction(t_data *data)
 {
 	if (data->buff[0] == 's' && data->buff[1] == 'a' && data->buff[2] == '\n')
@@ -75,7 +55,7 @@ void	ok_or_ko(t_data *data)
 	if (data->size != data->spliter)
 	{
 		write(1, "KO", 2);
-		ft_putchar('\n');
+		printf("\tNumber of Instructions: %d\n", data->counter);
 		return ;
 	}
 	while (i < data->size - 1)
@@ -85,12 +65,12 @@ void	ok_or_ko(t_data *data)
 		else
 		{
 			write(1, "KO", 2);
-			ft_putchar('\n');
+			printf("\tNumber of Instructions: %d\n", data->counter);
 			return ;
 		}
 	}
 	write(1, "OK", 2);
-	ft_putchar('\n');
+	printf("\tNumber of Instructions: %d\n", data->counter);
 }
 
 int	main(int ac, char **av)
@@ -99,6 +79,8 @@ int	main(int ac, char **av)
 	char c;
 	t_data data;
 	
+	if (ac == 1)
+		return (0);
 	data.spliter = ac - 1;
 	data.size = ac - 1;
 	data.error_instruc = 0;
@@ -108,6 +90,7 @@ int	main(int ac, char **av)
 	while (i > 0)
 	{
 		//security qu'on a bien un int en entree;
+		//security no duplicates
 		data.list[ac - i - 1] = atoi(av[i]);
 		i--;
 	}
@@ -115,6 +98,7 @@ int	main(int ac, char **av)
 	ft_putstr("---------------------------");
 	ft_putchar('\n');
 	i = 0;
+	data.counter = 0;
 	while (read(0, &c, 1) > 0)
 	{
 		data.buff[i] = c;
@@ -132,6 +116,7 @@ int	main(int ac, char **av)
 			ft_putchar('|');
 			ft_putchar('\n');*/
 			//ft_putstr(data.buff);
+			data.counter++;
 			execute_instruction(&data);
 		} //attention si la derniere instruction est fausse
 		if (i == 5)

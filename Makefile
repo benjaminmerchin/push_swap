@@ -1,9 +1,9 @@
 NAME_C	=	checker
-NAPE_P	=	push_swap
+NAME_P	=	push_swap
 CC		=	clang
 HEADER	=	header.h
 OBJDIR	=	object
-SRC		=	libft.c operation.c
+SRC		=	libft.c operation.c utils.c
 SRC_C	=	checker.c $(SRC)
 SRC_P	=	push_swap.c $(SRC)
 OBJ_C 	=	$(addprefix $(OBJDIR)/, $(SRC_C:.c=.o))
@@ -13,16 +13,19 @@ CFLAGS	=	-Wall -Wextra -Werror#-g#-fsanitize=address
 all: $(NAME_C) $(NAME_P)
 
 $(NAME_C): $(OBJ_C)
-	@$(CC) $(CFLAGS) -o $(NAME_C) $(OBJ_C)
+	@$(CC) $(CFLAGS) $(OBJ_C) -o $(NAME_C)
+#	@echo 'Checker Compilation OK'
 
 $(NAME_P): $(OBJ_P)
-	@$(CC) $(CFLAGS) -o $(NAME_P) $(OBJ_P)
+	@$(CC) $(CFLAGS) $(OBJ_P) -o $(NAME_P)
+#	@echo 'Checker Compilation OK'
 
 $(OBJDIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJ_C) $(OBJ_P)
+#	@echo 'Cleaning OK'
 
 fclean: clean
 	@rm -f $(NAME_C) $(NAME_P)
