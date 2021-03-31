@@ -24,6 +24,8 @@ typedef	struct	s_data {
 	char	buff[4]; // pour ranger les instruction du checker
 	int		error_instruc; // si une entree d'instructions est fausse
 	int		counter; //nombre d'instructions
+
+	int		pivot; //le pivot pour insertion sort
 }				t_data;
 
 void			sa(t_data *data);

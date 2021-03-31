@@ -11,7 +11,12 @@
 /* ************************************************************************** */
 
 #include "header.h"
-/*
+
+void	quick_sort(t_data *data)
+{
+	(void)data;
+}
+
 int main(int ac, char **av)
 {
 	int i;
@@ -34,12 +39,8 @@ int main(int ac, char **av)
 		i--;
 	}
 	print_state(&data);
-
-	return (0);
-}*/
-
-int main(void)
-{
-	ft_putchar('b');
+	quick_sort(&data);
+	print_state(&data);
+	free(data.list);
 	return (0);
 }

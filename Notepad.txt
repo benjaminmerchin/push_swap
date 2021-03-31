@@ -47,3 +47,9 @@ list[4] = 6 = list[spliter]			b
 list[5] = 1 = list[size - 2]		b
 list[6] = 6 = list[size - 1]		b
 Si on souhaite inverser les deux
+
+_____________________________________________________________________________________________________________
+Strategie de resolution :
+Quick sort
+Ameliorer avec de l'insertion sort
+Pour les petites listes, tout tester
