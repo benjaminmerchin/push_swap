@@ -12,9 +12,51 @@
 
 #include "header.h"
 
-void	quick_sort(t_data *data)
+void	find_closest_b(t_data *data, int pivot)
 {
 	(void)data;
+	(void)pivot;
+}
+
+void	push_closest_to_pivot_b(t_data *data, int pivot)
+{
+	find_closest_b(data, pivot);
+}
+
+void	insersion_sort_b(t_data *data)
+{
+	int i;
+	int pivot;
+
+	i = data->spliter;
+	pivot = median(data, data->spliter, data->size);
+	printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
+	push_closest_to_pivot_b(data, pivot);
+}
+
+void	quick_sort(t_data *data)
+{
+	int i;
+	int pivot;
+
+	i = 0;
+	pivot = median(data, 0, data->size);
+	while (i < data->size)
+	{
+		if (data->list[data->spliter - 1] < pivot)
+		{
+			pb(data);
+			ft_putstr("pb\n");
+		}
+		else
+		{
+			ra(data);
+			ft_putstr("ra\n");
+		}
+		i++;
+	}
+	print_state(data);
+	insersion_sort_b(data);
 }
 
 void	sort_two_top_a(t_data *data)
@@ -85,6 +127,7 @@ int main(int ac, char **av)
 	char **tab;
 	
 	i = 0;
+	data.error = 0;
 	if (ac == 1)
 		return (0);
 	data.spliter = ac - 1;

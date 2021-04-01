@@ -80,6 +80,7 @@ int	main(int ac, char **av)
 	t_data data;
 	char **tab;
 	
+	data.error = 0;
 	if (ac == 1)
 		return (0);
 	data.spliter = ac - 1;

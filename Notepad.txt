@@ -53,3 +53,7 @@ Strategie de resolution :
 Quick sort
 Ameliorer avec de l'insertion sort
 Pour les petites listes, tout tester
+
+Quand j'utilise un pivot, je laisse d'un cote ce qui est strictement inferieur et de l'autre ce qui est superieur ou egal.
+
+make re && ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG

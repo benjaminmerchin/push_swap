@@ -26,6 +26,7 @@ typedef	struct	s_data {
 	int		instuctions; //nombre d'instructions
 
 	int		pivot; //le pivot pour insertion sort
+	int		error;
 }				t_data;
 
 void			sa(t_data *data);
