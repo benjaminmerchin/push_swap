@@ -23,7 +23,7 @@ typedef	struct	s_data {
 	int		size; // taille de la liste, egal a spliter initialement
 	char	buff[4]; // pour ranger les instruction du checker
 	int		error_instruc; // si une entree d'instructions est fausse
-	int		counter; //nombre d'instructions
+	int		instuctions; //nombre d'instructions
 
 	int		pivot; //le pivot pour insertion sort
 }				t_data;
@@ -48,7 +48,12 @@ int				ft_atoi(const char *str);
 int				ft_strncmp(char *s1, char *s2, int n);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putstr(char *s);
+char			**ft_split(char const *s, char c);
+char			**ft_free(char **tab, int nbr);
+int				ft_nbr_str(char *s, char c);
+
 
 void			print_state(t_data *data);
+int				median(t_data *data, int begin, int end);
 
 #endif

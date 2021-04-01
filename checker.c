@@ -44,7 +44,7 @@ void	execute_instruction(t_data *data)
 		// free
 		//exit (0);
 	}
-	print_state(data); //
+	//print_state(data); //
 }
 
 void	ok_or_ko(t_data *data)
@@ -55,7 +55,7 @@ void	ok_or_ko(t_data *data)
 	if (data->size != data->spliter)
 	{
 		write(1, "KO", 2);
-		printf("\tNumber of Instructions: %d\n", data->counter);
+		printf("\tNumber of Instructions: %d\n", data->instuctions);
 		return ;
 	}
 	while (i < data->size - 1)
@@ -65,12 +65,12 @@ void	ok_or_ko(t_data *data)
 		else
 		{
 			write(1, "KO", 2);
-			printf("\tNumber of Instructions: %d\n", data->counter);
+			printf("\tNumber of Instructions: %d\n", data->instuctions);
 			return ;
 		}
 	}
 	write(1, "OK", 2);
-	printf("\tNumber of Instructions: %d\n", data->counter);
+	printf("\tNumber of Instructions: %d\n", data->instuctions);
 }
 
 int	main(int ac, char **av)
@@ -78,6 +78,7 @@ int	main(int ac, char **av)
 	int i;
 	char c;
 	t_data data;
+	char **tab;
 	
 	if (ac == 1)
 		return (0);
@@ -87,18 +88,33 @@ int	main(int ac, char **av)
 	if (!(data.list = malloc(sizeof(int) * (ac - 1))))
 		return (0); //message d'erreur
 	i = ac - 1;
+	if (ac == 2)
+	{
+		tab = ft_split(av[1], ' ');
+		i = ft_nbr_str(av[1], ' ');
+		//printf(">>>i : %d<<<\n", i);
+		//printf(">>>tab 0: %s<<<\n", tab[0]);
+		//printf(">>>tab 1: %s<<<\n", tab[1]);
+		data.spliter = i;
+		data.size = i;
+	}
 	while (i > 0)
 	{
 		//security qu'on a bien un int en entree;
 		//security no duplicates
-		data.list[ac - i - 1] = atoi(av[i]);
+		if (ac == 2)
+		{
+			data.list[data.spliter - i] = atoi(tab[i - 1]);
+			//printf(">>>%d<<<\n", atoi(tab[i - 1]));
+		}
+		else
+			data.list[ac - i - 1] = atoi(av[i]);
 		i--;
 	}
-	print_state(&data);
-	ft_putstr("---------------------------");
-	ft_putchar('\n');
+	//print_state(&data);
+	//ft_putstr("---------------------------\n");
 	i = 0;
-	data.counter = 0;
+	data.instuctions = 0;
 	while (read(0, &c, 1) > 0)
 	{
 		data.buff[i] = c;
@@ -116,16 +132,17 @@ int	main(int ac, char **av)
 			ft_putchar('|');
 			ft_putchar('\n');*/
 			//ft_putstr(data.buff);
-			data.counter++;
+			data.instuctions++;
 			execute_instruction(&data);
 		} //attention si la derniere instruction est fausse
 		if (i == 5)
 			data.error_instruc = 1;
 	}
-	ft_putstr("---------------------------");
-	ft_putchar('\n');
-	print_state(&data);
+	//ft_putstr("---------------------------\n");
+	//print_state(&data);
 	ok_or_ko(&data);
 	free(data.list);
+	if (ac == 2)
+		ft_free(tab, ft_nbr_str(av[1], ' '));
 	return (0);
 }
