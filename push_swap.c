@@ -11,16 +11,43 @@
 /* ************************************************************************** */
 
 #include "header.h"
-
-void	find_closest_b(t_data *data, int pivot)
+int		ft_abs(int a)
 {
-	(void)data;
-	(void)pivot;
+	if (a < 0)
+		return (-a);
+	return (a);
 }
 
-void	push_closest_to_pivot_b(t_data *data, int pivot)
+void	find_who_to_push_b(t_data *data, int pivot) //optimmiser pour trouver la pesronne la plus proche dans le top 3 et dans les 2 sens
 {
-	find_closest_b(data, pivot);
+	int i;
+
+	i = data->spliter;
+	data->above_val = 2147483647;
+	data->bellow_val = -2147483648;
+	while (i < data->size)
+	{
+		if (data->list[i] = pivot)
+			data->equal_pos = i;
+		else if (data->list[i] > pivot) // on est plus proche du pivot et AU DESSUS
+		{
+			if (data->list[i] <= data->above_val)
+			{
+				data->above_val = data->list[i];
+				data->above_pos = i;
+			}
+		}
+		else if (data->list[i] < pivot) // on est plus proche du pivot et EN DESSOUS
+		{
+			if (data->list[i] >= data->bellow_val)
+			{
+				data->bellow_val = data->list[i];
+				data->bellow_pos = i;
+			}
+		}
+		i++;
+	}
+	// i pivort est positif ou egal a 0, ca signifie qu'on est sur un premier passage et on a pivot
 }
 
 void	insersion_sort_b(t_data *data)
@@ -31,7 +58,7 @@ void	insersion_sort_b(t_data *data)
 	i = data->spliter;
 	pivot = median(data, data->spliter, data->size);
 	printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
-	push_closest_to_pivot_b(data, pivot);
+	find_who_to_push_b(data, pivot);
 }
 
 void	quick_sort(t_data *data)

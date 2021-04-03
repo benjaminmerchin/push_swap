@@ -27,6 +27,14 @@ typedef	struct	s_data {
 
 	int		pivot; //le pivot pour insertion sort
 	int		error;
+	int		rotation; //nombre de rotations a faire pour remonter le bon chiffre a push
+	int		direction; //direction de la rotation a faire //1 ou -1
+
+	int		above_pos;
+	int		above_val;
+	int		equal_pos;
+	int		bellow_pos;
+	int		bellow_val;
 }				t_data;
 
 void			sa(t_data *data);
