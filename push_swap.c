@@ -62,8 +62,8 @@ void	find_farthest_pos_b(t_data *data, int pivot)
 	int i;
 
 	i = data->spliter;
-	data->above_val = -2147483648;
-	data->bellow_val = 2147483647;
+	data->above_val = pivot;
+	data->bellow_val = pivot;
 	while (i < data->size)
 	{
 		if (data->list[i] > data->above_val)
@@ -74,7 +74,7 @@ void	find_farthest_pos_b(t_data *data, int pivot)
 		if (data->list[i] < data->bellow_val)
 		{
 			data->bellow_val = data->list[i];
-			data->above_pos = i;
+			data->bellow_pos = i;
 		}
 		i++;
 	}
@@ -84,38 +84,18 @@ void	calculate_best_move(t_data *data, int pivot)
 {
 	int up;
 	int down;
-	int a;
 
-	a = 0;
-	if (data->equal_pos > 0)// if pivot in list
+	up = ft_min(data->above_pos - data->spliter, data->bellow_pos - data->spliter);
+	down = ft_min(data->size - data->above_pos, data->size - data->bellow_pos);
+	if (up <= down)
 	{
-		up = data->equal_pos - data->spliter;
-		down = data->size - data->equal_pos;
-		if (up <= down)
-		{
-			data->rotation = up;
-			data->direction = 1;
-		}
-		else
-		{
-			data->rotation = down;
-			data->direction = -1;
-		}
+		data->rotation = up;
+		data->direction = 1;
 	}
 	else
 	{
-		up = ft_min(data->above_pos - data->spliter, data->bellow_pos - data->spliter);
-		down = ft_min(data->size - data->above_pos, data->size - data->bellow_pos);
-		if (up <= down)
-		{
-			data->rotation = up;
-			data->direction = 1;
-		}
-		else
-		{
-			data->rotation = down;
-			data->direction = -1;
-		}
+		data->rotation = down;
+		data->direction = -1;
 	}
 }
 

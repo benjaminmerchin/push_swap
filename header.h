@@ -29,6 +29,7 @@ typedef	struct	s_data {
 	int		error;
 	int		rotation; //nombre de rotations a faire pour remonter le bon chiffre a push
 	int		direction; //direction de la rotation a faire //1 ou -1
+	int		moving; //direction du dernier mouvement
 
 	int		above_pos;
 	int		above_val;
