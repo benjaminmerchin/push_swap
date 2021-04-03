@@ -49,6 +49,18 @@ void			rra(t_data *data);
 void			rrb(t_data *data);
 void			rrr(t_data *data);
 
+void			saw(t_data *data);
+void			sbw(t_data *data);
+void			ssw(t_data *data);
+void			paw(t_data *data);
+void			pbw(t_data *data);
+void			raw(t_data *data);
+void			rbw(t_data *data);
+void			rrw(t_data *data);
+void			rraw(t_data *data);
+void			rrbw(t_data *data);
+void			rrrw(t_data *data);
+
 void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 int				ft_strlen(char *s);

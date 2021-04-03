@@ -18,18 +18,26 @@ int		ft_abs(int a)
 	return (a);
 }
 
-void	find_who_to_push_b(t_data *data, int pivot) //optimmiser pour trouver la pesronne la plus proche dans le top 3 et dans les 2 sens
+int		ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+void	find_three_closest_pos_b(t_data *data, int pivot)
 {
 	int i;
 
 	i = data->spliter;
 	data->above_val = 2147483647;
 	data->bellow_val = -2147483648;
+	data->equal_pos = -1;
 	while (i < data->size)
 	{
-		if (data->list[i] = pivot)
+		if (data->list[i] == pivot)
 			data->equal_pos = i;
-		else if (data->list[i] > pivot) // on est plus proche du pivot et AU DESSUS
+		else if (data->list[i] >= pivot)
 		{
 			if (data->list[i] <= data->above_val)
 			{
@@ -37,7 +45,7 @@ void	find_who_to_push_b(t_data *data, int pivot) //optimmiser pour trouver la pe
 				data->above_pos = i;
 			}
 		}
-		else if (data->list[i] < pivot) // on est plus proche du pivot et EN DESSOUS
+		else if (data->list[i] <= pivot)
 		{
 			if (data->list[i] >= data->bellow_val)
 			{
@@ -46,8 +54,85 @@ void	find_who_to_push_b(t_data *data, int pivot) //optimmiser pour trouver la pe
 			}
 		}
 		i++;
+	} // i pivort est positif ou egal a 0, ca signifie qu'on est sur un premier passage et on a pivot
+}
+
+void	find_farthest_pos_b(t_data *data, int pivot)
+{
+	int i;
+
+	i = data->spliter;
+	data->above_val = -2147483648;
+	data->bellow_val = 2147483647;
+	while (i < data->size)
+	{
+		if (data->list[i] > data->above_val)
+		{
+			data->above_val = data->list[i];
+			data->above_pos = i;
+		}
+		if (data->list[i] < data->bellow_val)
+		{
+			data->bellow_val = data->list[i];
+			data->above_pos = i;
+		}
+		i++;
 	}
-	// i pivort est positif ou egal a 0, ca signifie qu'on est sur un premier passage et on a pivot
+}
+
+void	calculate_best_move(t_data *data, int pivot)
+{
+	int up;
+	int down;
+	int a;
+
+	a = 0;
+	if (data->equal_pos > 0)// if pivot in list
+	{
+		up = data->equal_pos - data->spliter;
+		down = data->size - data->equal_pos;
+		if (up <= down)
+		{
+			data->rotation = up;
+			data->direction = 1;
+		}
+		else
+		{
+			data->rotation = down;
+			data->direction = -1;
+		}
+	}
+	else
+	{
+		up = ft_min(data->above_pos - data->spliter, data->bellow_pos - data->spliter);
+		down = ft_min(data->size - data->above_pos, data->size - data->bellow_pos);
+		if (up <= down)
+		{
+			data->rotation = up;
+			data->direction = 1;
+		}
+		else
+		{
+			data->rotation = down;
+			data->direction = -1;
+		}
+	}
+}
+
+void	execute_best_move_b(t_data *data, int pivot) //combine up & down with the first operation
+{
+	int i;
+
+	i = 0;
+	while(i < data->rotation)
+	{
+		if (data->direction > 0)
+			rbw(data);
+		else
+			rrbw(data);
+		i++;
+	}
+	paw(data);
 }
 
 void	insersion_sort_b(t_data *data)
@@ -57,8 +142,14 @@ void	insersion_sort_b(t_data *data)
 
 	i = data->spliter;
 	pivot = median(data, data->spliter, data->size);
-	printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
-	find_who_to_push_b(data, pivot);
+	//printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
+	while (i < data->size)
+	{
+		find_farthest_pos_b(data, pivot);
+		calculate_best_move(data, pivot);
+		execute_best_move_b(data, pivot);
+		i++;
+	}
 }
 
 void	quick_sort(t_data *data)
@@ -71,15 +162,9 @@ void	quick_sort(t_data *data)
 	while (i < data->size)
 	{
 		if (data->list[data->spliter - 1] < pivot)
-		{
-			pb(data);
-			ft_putstr("pb\n");
-		}
+			pbw(data);
 		else
-		{
-			ra(data);
-			ft_putstr("ra\n");
-		}
+			raw(data);
 		i++;
 	}
 	print_state(data);
@@ -89,10 +174,7 @@ void	quick_sort(t_data *data)
 void	sort_two_top_a(t_data *data)
 {
 	if (data->list[data->spliter - 1] > data->list[data->spliter - 2])
-	{
-		sa(data);
-		ft_putstr("sa\n");
-	}
+		saw(data);
 }
 
 void	sort_only_three(t_data *data)
@@ -100,38 +182,24 @@ void	sort_only_three(t_data *data)
 	if (data->list[data->spliter - 1] < data->list[data->spliter - 3] &&
 	data->list[data->spliter - 3] < data->list[data->spliter - 2])
 	{
-		ra(data);
-		ft_putstr("ra\n");
-		sa(data);
-		ft_putstr("sa\n");
-		rra(data);
-		ft_putstr("rra\n");
+		raw(data);
+		saw(data);
+		rraw(data);
 	}
 	else if (data->list[data->spliter - 2] < data->list[data->spliter - 1] &&
 	data->list[data->spliter - 1] < data->list[data->spliter - 3])
-	{
-		sa(data);
-		ft_putstr("sa\n");
-	}
+		saw(data);
 	else if (data->list[data->spliter - 3] < data->list[data->spliter - 1] &&
 	data->list[data->spliter - 1] < data->list[data->spliter - 2])
-	{
-		rra(data);
-		ft_putstr("rra\n");
-	}
+		rraw(data);
 	else if (data->list[data->spliter - 2] < data->list[data->spliter - 3] &&
 	data->list[data->spliter - 3] < data->list[data->spliter - 1])
-	{
-		ra(data);
-		ft_putstr("ra\n");
-	}
+		raw(data);
 	else if (data->list[data->spliter - 3] < data->list[data->spliter - 2] &&
 	data->list[data->spliter - 2] < data->list[data->spliter - 1])
 	{
-		sa(data);
-		ft_putstr("sa\n");
-		rra(data);
-		ft_putstr("rra\n");
+		saw(data);
+		rraw(data);
 	}
 }
 
