@@ -86,8 +86,6 @@ int	main(int ac, char **av)
 	data.spliter = ac - 1;
 	data.size = ac - 1;
 	data.error_instruc = 0;
-	if (!(data.list = malloc(sizeof(int) * (ac - 1))))
-		return (0); //message d'erreur
 	i = ac - 1;
 	if (ac == 2)
 	{
@@ -99,6 +97,8 @@ int	main(int ac, char **av)
 		data.spliter = i;
 		data.size = i;
 	}
+	if (!(data.list = malloc(sizeof(int) * data.size)))
+		return (0); //message d'erreur
 	while (i > 0)
 	{
 		//security qu'on a bien un int en entree;
