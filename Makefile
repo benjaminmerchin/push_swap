@@ -8,7 +8,7 @@ SRC_C	=	checker.c $(SRC)
 SRC_P	=	push_swap.c $(SRC)
 OBJ_C 	=	$(addprefix $(OBJDIR)/, $(SRC_C:.c=.o))
 OBJ_P 	=	$(addprefix $(OBJDIR)/, $(SRC_P:.c=.o))
-CFLAGS	=	-Wall -Werror#-g#-fsanitize=address#-Wextra
+CFLAGS	=	-Wall -Werror -Wextra#-g#-fsanitize=address#-Wextra
 
 all: $(NAME_C) $(NAME_P)
 

@@ -58,6 +58,5 @@ Quand j'utilise un pivot, je laisse d'un cote ce qui est strictement inferieur e
 
 _____________________________________________________________________________________________________________
 make re && ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG
-make re && ARG=`ruby -e "puts (1..6).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker $ARG
+make re && ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker $ARG
 make re && ./push_swap $ARG
-

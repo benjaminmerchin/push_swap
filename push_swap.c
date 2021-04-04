@@ -72,7 +72,7 @@ void	find_three_closest_pos_b(t_data *data, int pivot)
 	} // i pivort est positif ou egal a 0, ca signifie qu'on est sur un premier passage et on a pivot
 }
 
-void	find_farthest_pos_b(t_data *data, int pivot)
+void	find_farthest_pos_b(t_data *data)
 {
 	int i;
 
@@ -95,7 +95,7 @@ void	find_farthest_pos_b(t_data *data, int pivot)
 	}
 }
 
-void	calculate_best_move(t_data *data, int pivot)
+void	calculate_best_move(t_data *data)
 {
 	int up;
 	int down;
@@ -116,7 +116,7 @@ void	calculate_best_move(t_data *data, int pivot)
 	}
 }
 
-void	execute_best_move_b(t_data *data, int pivot) //combine up & down with the first operation
+void	execute_best_move_b(t_data *data) //combine up & down with the first operation
 {
 	int i;
 
@@ -147,9 +147,9 @@ void	insersion_sort_b(t_data *data)
 	data->bool_first_move = 1;
 	while (i < data->size)
 	{
-		find_farthest_pos_b(data, pivot);
-		calculate_best_move(data, pivot);
-		execute_best_move_b(data, pivot);
+		find_farthest_pos_b(data);
+		calculate_best_move(data);
+		execute_best_move_b(data);
 		i++;
 	}
 }
@@ -308,7 +308,6 @@ int main(int ac, char **av)
 		return (0);
 	data.spliter = ac - 1;
 	data.size = ac - 1;
-	data.error_instruc = 0;
 	i = ac - 1;
 	if (ac == 2)
 	{
@@ -321,7 +320,7 @@ int main(int ac, char **av)
 		data.size = i;
 	}
 	if (!(data.list = malloc(sizeof(int) * data.size)))
-		return (0); //message d'erreur./c
+		return (0); //message d'erreur
 	while (i > 0)
 	{
 		//security qu'on a bien un int en entree;
@@ -344,6 +343,5 @@ int main(int ac, char **av)
 	free(data.list);
 	if (ac == 2)
 		ft_free(tab, ft_nbr_str(av[1], ' '));
-	//ft_putstr(av[1]);
 	return (0);
 }

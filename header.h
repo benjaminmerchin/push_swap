@@ -24,11 +24,10 @@ typedef	struct	s_data {
 	int		spliter; // la limite sur la liste ou on change de pile
 	int		size; // taille de la liste, egal a spliter initialement
 	char	buff[4]; // pour ranger les instruction du checker
-	int		error_instruc; // si une entree d'instructions est fausse
+	int		error; // si une entree d'instructions est fausse
 	int		instuctions; //nombre d'instructions
 
 	int		pivot; //le pivot pour insertion sort
-	int		error;
 	int		rotation; //nombre de rotations a faire pour remonter le bon chiffre a push
 	int		direction; //direction de la rotation a faire //1 ou -1
 	int		moving; //direction du dernier mouvement
@@ -81,6 +80,7 @@ void			ft_putstr(char *s);
 char			**ft_split(char const *s, char c);
 char			**ft_free(char **tab, int nbr);
 int				ft_nbr_str(char *s, char c);
+int	ft_free_print_error(t_data *data, int ac, char **av, char ***tab);
 
 
 void			print_state(t_data *data);

@@ -37,13 +37,7 @@ void	execute_instruction(t_data *data)
 	else if (data->buff[0] == 'r' && data->buff[1] == 'r' && data->buff[2] == 'r' && data->buff[3] == '\n')
 		rrr(data);
 	else
-	{
-		data->error_instruc = 1;
-		ft_putstr_fd("Error", 0);
-		ft_putchar_fd('\n', 0);
-		// free
-		//exit (0);
-	}
+		data->error = 1;
 	//print_state(data); //
 }
 
@@ -85,7 +79,7 @@ int	main(int ac, char **av)
 		return (0);
 	data.spliter = ac - 1;
 	data.size = ac - 1;
-	data.error_instruc = 0;
+	data.error = 0;
 	i = ac - 1;
 	if (ac == 2)
 	{
@@ -136,8 +130,8 @@ int	main(int ac, char **av)
 			data.instuctions++;
 			execute_instruction(&data);
 		} //attention si la derniere instruction est fausse
-		if (i == 5)
-			data.error_instruc = 1;
+		if (i == 5 || data.error)
+			return(ft_free_print_error(&data, ac, av, &tab));
 	}
 	//ft_putstr("---------------------------\n");
 	//print_state(&data);
