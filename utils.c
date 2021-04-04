@@ -17,6 +17,8 @@ void	print_state(t_data *data)
 	int i;
 
 	i = 0;
+	if (!PRINT)
+		return ;
 	while (i < data->size)
 	{
 		ft_putnbr(data->list[i]);

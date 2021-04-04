@@ -13,9 +13,11 @@
 #ifndef HEADER_H
 # define HEADER_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+# define PRINT 0
 
 typedef	struct	s_data {
 	int		*list; // la liste qui contiens les variables a trier
@@ -30,12 +32,18 @@ typedef	struct	s_data {
 	int		rotation; //nombre de rotations a faire pour remonter le bon chiffre a push
 	int		direction; //direction de la rotation a faire //1 ou -1
 	int		moving; //direction du dernier mouvement
+	int		relative; //position par rapport au pivot
+	int		last_relative; //ancien data->relative
+	int		relative_up; //position par rapport au pivot
+	int		relative_down; //position par rapport au pivot
 
 	int		above_pos;
 	int		above_val;
 	int		equal_pos;
 	int		bellow_pos;
 	int		bellow_val;
+
+	int		bool_first_move;
 }				t_data;
 
 void			sa(t_data *data);
