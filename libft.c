@@ -51,7 +51,7 @@ void	ft_putnbr(int n)
 		ft_putchar(nbr + '0');
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, t_data *data)
 {
 	int		i;
 	int		sign;
@@ -60,8 +60,6 @@ int	ft_atoi(const char *str)
 	i = 0;
 	nbr = 0;
 	sign = 1;
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
-		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
@@ -70,6 +68,8 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 		nbr = nbr * 10 + str[i++] - '0';
+	if (i == 0 || (i == 1 && sign == -1) || nbr > 2147483647 || nbr < -2147483648)
+		data->error = 1;
 	return (nbr * sign);
 }
 

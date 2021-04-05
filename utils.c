@@ -40,7 +40,23 @@ int	ft_free_print_error(t_data *data, int ac, char **av, char ***tab)
 	if (ac == 2)
 		ft_free(*tab, ft_nbr_str(av[1], ' '));
 	ft_putstr_fd("Error\n", 0);
-	if (data->error == 1)
-		ft_putstr_fd("Error\nWrong Instruction in Checker\n", 0);
 	return (0);
+}
+
+void	security_duplicates(t_data *data, int nbr)
+{
+	int val;
+
+	val = data->list[nbr];
+	printf("Passage : nbr %d       val %d\n", nbr, val);
+	nbr++;
+	while (nbr < data->size)
+	{
+		if (data->list[nbr] == val)
+			data->error = 1;
+		nbr++;
+		write(1, "@", 1);
+	}
+	write(1, "\n", 1);
+	//write(1, "@", 1);
 }

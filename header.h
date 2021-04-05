@@ -73,15 +73,15 @@ void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 int				ft_strlen(char *s);
 void			ft_putnbr(int n);
-int				ft_atoi(const char *str);
+int				ft_atoi(const char *str, t_data *data);
 int				ft_strncmp(char *s1, char *s2, int n);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putstr(char *s);
 char			**ft_split(char const *s, char c);
 char			**ft_free(char **tab, int nbr);
 int				ft_nbr_str(char *s, char c);
-int	ft_free_print_error(t_data *data, int ac, char **av, char ***tab);
-
+int				ft_free_print_error(t_data *data, int ac, char **av, char ***tab);
+void			security_duplicates(t_data *data, int i);
 
 void			print_state(t_data *data);
 int				median(t_data *data, int begin, int end);

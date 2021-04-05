@@ -38,7 +38,6 @@ void	execute_instruction(t_data *data)
 		rrr(data);
 	else
 		data->error = 1;
-	//print_state(data); //
 }
 
 void	ok_or_ko(t_data *data)
@@ -85,9 +84,6 @@ int	main(int ac, char **av)
 	{
 		tab = ft_split(av[1], ' ');
 		i = ft_nbr_str(av[1], ' ');
-		//printf(">>>i : %d<<<\n", i);
-		//printf(">>>tab 0: %s<<<\n", tab[0]);
-		//printf(">>>tab 1: %s<<<\n", tab[1]);
 		data.spliter = i;
 		data.size = i;
 	}
@@ -95,15 +91,18 @@ int	main(int ac, char **av)
 		return (0); //message d'erreur
 	while (i > 0)
 	{
-		//security qu'on a bien un int en entree;
-		//security no duplicates
 		if (ac == 2)
 		{
-			data.list[data.spliter - i] = atoi(tab[i - 1]);
-			//printf(">>>%d<<<\n", atoi(tab[i - 1]));
+			data.list[data.spliter - i] = ft_atoi(tab[i - 1], &data);
+			security_duplicates(&data, data.spliter - i);
 		}
 		else
-			data.list[ac - i - 1] = atoi(av[i]);
+		{
+			data.list[ac - i - 1] = ft_atoi(av[i], &data);
+			security_duplicates(&data, ac - i - 1);
+		}
+		if (data.error == 1)
+			return(ft_free_print_error(&data, ac, av, &tab));
 		i--;
 	}
 	//print_state(&data);
@@ -117,20 +116,10 @@ int	main(int ac, char **av)
 		if (c == '\n')
 		{
 			i = 0;
-			/*ft_putchar(data.buff[0]);
-			ft_putchar('|');
-			ft_putchar(data.buff[1]);
-			ft_putchar('|');
-			ft_putchar(data.buff[2]);
-			ft_putchar('|');
-			ft_putchar(data.buff[3]);
-			ft_putchar('|');
-			ft_putchar('\n');*/
-			//ft_putstr(data.buff);
 			data.instuctions++;
 			execute_instruction(&data);
-		} //attention si la derniere instruction est fausse
-		if (i == 5 || data.error)
+		}
+		if (data.error)
 			return(ft_free_print_error(&data, ac, av, &tab));
 	}
 	//ft_putstr("---------------------------\n");
