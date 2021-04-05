@@ -48,15 +48,25 @@ void	security_duplicates(t_data *data, int nbr)
 	int val;
 
 	val = data->list[nbr];
-	printf("Passage : nbr %d       val %d\n", nbr, val);
-	nbr++;
-	while (nbr < data->size)
+	nbr--;
+	while (nbr >= 0)
 	{
 		if (data->list[nbr] == val)
 			data->error = 1;
-		nbr++;
-		write(1, "@", 1);
+		nbr--;
 	}
-	write(1, "\n", 1);
-	//write(1, "@", 1);
+}
+
+int		already_sorted(t_data *data)
+{
+	int i;
+
+	i = 1;
+	while (i < data->size)
+	{
+		if (data->list[i - 1] < data->list[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }

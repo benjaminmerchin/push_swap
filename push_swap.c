@@ -284,6 +284,8 @@ void	sort_four_five(t_data *data)
 
 void	sort(t_data *data)
 {
+	if (already_sorted(data))
+		return ;
 	if (data->size == 1)
 		return ;
 	else if (data->size == 2)

@@ -62,12 +62,10 @@ make re && ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG
 make re && ./push_swap $ARG
 
 Todo demain : 
-- gerer les erreurs avec mauvais argument
-- gerer les erreurs avec arguments en boucle
 - descendre sous les 700 en moyenne pour 100
 - commencer la strategie pour 500
-
-Todo apres-demain :
 - descendre sous les 5500 pour 500
+
+Todo apres demain :
+- Norme
 - faire 5 petits bonus pour 125%
-- si la liste est deja triée, aucune instructions ne doit avoir lieu
