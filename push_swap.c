@@ -40,7 +40,7 @@ int		min_down(t_data *data, int a, int b)
 	return (b);
 }
 
-void	find_three_closest_pos_b(t_data *data, int pivot)
+void	find_three_closest_pos_b(t_data *data, int pivot) //outdated function
 {
 	int i;
 
@@ -72,13 +72,18 @@ void	find_three_closest_pos_b(t_data *data, int pivot)
 	} // i pivort est positif ou egal a 0, ca signifie qu'on est sur un premier passage et on a pivot
 }
 
-void	find_farthest_pos_b(t_data *data)
+
+
+
+void	find_farthest_pos_b(t_data *data) // -2147483648 // 2147483647
 {
 	int i;
 
 	i = data->spliter;
-	data->above_val = -2147483648;
-	data->bellow_val = 2147483647;
+	data->above_val = -21474836489;
+	data->a_val = -21474836489;
+	data->bellow_val = 21474836479;
+	data->b_val = 21474836479;
 	while (i < data->size)
 	{
 		if (data->list[i] >= data->above_val)
@@ -90,6 +95,26 @@ void	find_farthest_pos_b(t_data *data)
 		{
 			data->bellow_val = data->list[i];
 			data->bellow_pos = i;
+		}
+		i++;
+	}
+	i = data->spliter;
+	while (i < data->size)
+	{
+		if (data->list[i] == data->above_val || data->list[i] == data->bellow_val)
+			;
+		else
+		{
+			if (data->list[i] >= data->a_val)
+			{
+				data->a_val = data->list[i];
+				data->a_pos = i;
+			}
+			if (data->list[i] <= data->b_val)
+			{
+				data->b_val = data->list[i];
+				data->b_pos = i;
+			}
 		}
 		i++;
 	}
@@ -116,13 +141,102 @@ void	calculate_best_move(t_data *data)
 	}
 }
 
+void	calculate_best_move2(t_data *data) //write the 8 options with all the  //priority for 	above
+{
+	int min;
+
+	min = data->above_pos - data->spliter;
+	if (data->bellow_pos - data->spliter < min)
+		min = data->bellow_pos - data->spliter;
+	if (data->size - data->above_pos < min)
+		min = data->size - data->above_pos;
+	if (data->size - data->bellow_pos < min)
+		min = data->size - data->bellow_pos;
+	if (data->a_pos - data->spliter + 1 < min)/* + bloqueur*/
+		min = data->a_pos - data->spliter + 1;
+	if (data->b_pos - data->spliter + 1 < min)/* + bloqueur*/
+		min = data->b_pos - data->spliter + 1;
+	if (data->size - data->a_pos + 1 < min)/* + bloqueur*/
+		min = data->size - data->a_pos + 1;
+	if (data->size - data->b_pos + 1 < min)/* + bloqueur*/
+		min = data->size - data->b_pos + 1;
+
+	if (min == data->above_pos - data->spliter)
+	{
+		data->rotation = min;
+		data->direction = 1;
+		data->relative = 4;  /* 1 2       3 4 */
+	}
+	else if (min == data->size - data->above_pos)
+	{
+		data->rotation = min;
+		data->direction = -1;
+		data->relative = 4;
+	}
+	else if (min == data->a_pos - data->spliter + 1 /*+ lock*/)
+	{
+		data->rotation = data->a_pos - data->spliter;
+		data->direction = 1;
+		data->relative = 3;
+	}
+	else if (min == data->size - data->a_pos + 1 /*+ lock*/)
+	{
+		data->rotation = data->size - data->a_pos;
+		data->direction = -1;
+		data->relative = 3;
+	}
+	else if (min == data->bellow_pos - data->spliter)
+	{
+		data->rotation = min;
+		data->direction = 1;
+		data->relative = 1;
+	}
+	else if (min == data->size - data->bellow_pos)
+	{
+		data->rotation = min;
+		data->direction = -1;
+		data->relative = 1;
+	}
+	else if (min == data->b_pos - data->spliter + 1 /*+ lock*/)
+	{
+		data->rotation = data->b_pos - data->spliter;
+		data->direction = 1;
+		data->relative = 2;
+	}
+	else if (min == data->size - data->b_pos + 1 /*+ lock*/)
+	{
+		data->rotation = data->size - data->b_pos;
+		data->direction = -1;
+		data->relative = 2;
+	}
+
+	//above_pos up
+	//above_pos down
+	//a_pos up		//bloquer si on a un a_pos dernierement avant d'avoir un above_pos
+	//a_pos down	//idem
+	//bellow_pos up
+	//bellow_pos down
+	//b_pos up      //bloquer si on a un b_pos dernierement avant d'avoir un bellow_pos //rajouter + 
+	//b_pos down	//idem
+
+	//une fois qu'on a le meilleur mouv
+}
+
 void	execute_best_move_b(t_data *data) //combine up & down with the first operation
 {
 	int i;
 
 	i = 0;
 	if (!data->bool_first_move && data->last_relative < 0)
-		raw(data);
+	{
+		if (i < data->rotation && data->direction > 0)
+		{
+			rrw(data);
+			i++;
+		}
+		else
+			raw(data);
+	}
 	data->bool_first_move = 0;
 	while(i < data->rotation)
 	{
@@ -306,6 +420,7 @@ int main(int ac, char **av)
 	
 	i = 0;
 	data.error = 0;
+	data.rrr = 0;
 	if (ac == 1)
 		return (0);
 	data.spliter = ac - 1;
@@ -319,7 +434,7 @@ int main(int ac, char **av)
 		data.size = i;
 	}
 	if (!(data.list = malloc(sizeof(int) * data.size)))
-		return (0); //message d'erreur
+		return (free_tab_print_error(ac, av, &tab));
 	while (i > 0)
 	{
 		if (ac == 2)

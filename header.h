@@ -26,6 +26,7 @@ typedef	struct	s_data {
 	char	buff[4]; // pour ranger les instruction du checker
 	int		error; // si une entree d'instructions est fausse
 	int		instuctions; //nombre d'instructions
+	int		rrr; //si on mutualise les rotations
 
 	int		pivot; //le pivot pour insertion sort
 	int		rotation; //nombre de rotations a faire pour remonter le bon chiffre a push
@@ -36,11 +37,15 @@ typedef	struct	s_data {
 	int		relative_up; //position par rapport au pivot
 	int		relative_down; //position par rapport au pivot
 
-	int		above_pos;
-	int		above_val;
-	int		equal_pos;
-	int		bellow_pos;
-	int		bellow_val;
+	long	above_pos;
+	long	a_pos;
+	long	above_val;
+	long	a_val;
+	long	equal_pos;
+	long	bellow_pos;
+	long	b_pos;
+	long	bellow_val;
+	long	b_val;
 
 	int		bool_first_move;
 }				t_data;
@@ -83,6 +88,7 @@ int				ft_nbr_str(char *s, char c);
 int				ft_free_print_error(t_data *data, int ac, char **av, char ***tab);
 void			security_duplicates(t_data *data, int i);
 int		already_sorted(t_data *data);
+int	free_tab_print_error(int ac, char **av, char ***tab);
 
 
 void			print_state(t_data *data);

@@ -21,7 +21,8 @@ void	saw(t_data *data) // on souhaite inverser l'emplacement data_spliter - 1 av
 	temp = data->list[data->spliter - 1];
 	data->list[data->spliter - 1] = data->list[data->spliter - 2];
 	data->list[data->spliter - 2] = temp;
-	ft_putstr("sa\n");
+	if (data->rrr == 0)
+		ft_putstr("sa\n");
 }
 
 void	sbw(t_data *data) // on souhaite inverser l'emplacement data_spliter avec data_spliter + 1
@@ -33,13 +34,17 @@ void	sbw(t_data *data) // on souhaite inverser l'emplacement data_spliter avec d
 	temp = data->list[data->spliter];
 	data->list[data->spliter] = data->list[data->spliter + 1];
 	data->list[data->spliter + 1] = temp;
-	ft_putstr("sb\n");
+	if (data->rrr == 0)	
+		ft_putstr("sb\n");
 }
 
 void	ssw(t_data *data)
 {
+	data->rrr = 1;
 	saw(data);
 	sbw(data);
+	data->rrr = 0;
+	ft_putstr("ss\n");
 }
 
 void	paw(t_data *data)
@@ -71,7 +76,8 @@ void	raw(t_data *data)
 		i--;
 	}
 	data->list[i] = temp;
-	ft_putstr("ra\n");
+	if (data->rrr == 0)
+		ft_putstr("ra\n");
 }
 
 void	rbw(t_data *data)
@@ -89,13 +95,17 @@ void	rbw(t_data *data)
 		i++;
 	}
 	data->list[i] = temp;
-	ft_putstr("rb\n");
+	if (data->rrr == 0)
+		ft_putstr("rb\n");
 }
 
 void	rrw(t_data *data)
 {
+	data->rrr = 1;
 	raw(data);
 	rbw(data);
+	data->rrr = 0;
+	ft_putstr("rr\n");
 }
 
 void	rraw(t_data *data)
@@ -113,7 +123,8 @@ void	rraw(t_data *data)
 		i++;
 	}
 	data->list[i] = temp;
-	ft_putstr("rra\n");
+	if (data->rrr == 0)
+		ft_putstr("rra\n");
 }
 
 void	rrbw(t_data *data)
@@ -131,11 +142,15 @@ void	rrbw(t_data *data)
 		i--;
 	}
 	data->list[i] = temp;
-	ft_putstr("rrb\n");
+	if (data->rrr == 0)
+		ft_putstr("rrb\n");
 }
 
 void	rrrw(t_data *data)
 {
+	data->rrr = 1;
 	rraw(data);
 	rrbw(data);
+	data->rrr = 0;
+	ft_putstr("rrr\n");
 }

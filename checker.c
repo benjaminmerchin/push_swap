@@ -74,6 +74,7 @@ int	main(int ac, char **av)
 	char **tab;
 	
 	data.error = 0;
+	data.rrr = 0;
 	if (ac == 1)
 		return (0);
 	data.spliter = ac - 1;
@@ -88,7 +89,7 @@ int	main(int ac, char **av)
 		data.size = i;
 	}
 	if (!(data.list = malloc(sizeof(int) * data.size)))
-		return (0); //message d'erreur
+		return (free_tab_print_error(ac, av, &tab));
 	while (i > 0)
 	{
 		if (ac == 2)

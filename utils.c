@@ -70,3 +70,11 @@ int		already_sorted(t_data *data)
 	}
 	return (1);
 }
+
+int		free_tab_print_error(int ac, char **av, char ***tab)
+{
+	if (ac == 2)
+		ft_free(*tab, ft_nbr_str(av[1], ' '));
+	ft_putstr_fd("Error\n", 0);
+	return (0);
+}
