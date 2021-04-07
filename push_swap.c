@@ -80,10 +80,10 @@ void	find_farthest_pos_b(t_data *data) // -2147483648 // 2147483647
 	int i;
 
 	i = data->spliter;
-	data->above_val = -21474836489;
-	data->a_val = -21474836489;
-	data->bellow_val = 21474836479;
-	data->b_val = 21474836479;
+	data->above_val = -2147483648;
+	data->a_val = -2147483648;
+	data->bellow_val = 2147483647;
+	data->b_val = 2147483647;
 	while (i < data->size)
 	{
 		if (data->list[i] >= data->above_val)
@@ -97,6 +97,11 @@ void	find_farthest_pos_b(t_data *data) // -2147483648 // 2147483647
 			data->bellow_pos = i;
 		}
 		i++;
+	}
+	if (data->size - data->spliter < 5)
+	{
+		data->too_small = 1;
+		return ;
 	}
 	i = data->spliter;
 	while (i < data->size)
@@ -118,7 +123,7 @@ void	find_farthest_pos_b(t_data *data) // -2147483648 // 2147483647
 		}
 		i++;
 	}		//if (data->a_val == -9)ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-	ft_putstr("above_val : ");
+	/*ft_putstr("above_val : ");
 	ft_putnbr(data->above_val);
 	ft_putstr("\n");
 	ft_putstr("a_val : ");
@@ -129,7 +134,7 @@ void	find_farthest_pos_b(t_data *data) // -2147483648 // 2147483647
 	ft_putstr("\n");
 	ft_putstr("b_val : ");
 	ft_putnbr(data->b_val);
-	ft_putstr("\n");
+	ft_putstr("\n");*/
 }
 
 void	calculate_best_move(t_data *data)
@@ -164,14 +169,14 @@ void	calculate_best_move2(t_data *data) //write the 8 options with all the  //pr
 		min = data->size - data->above_pos;
 	if (data->size - data->bellow_pos < min)
 		min = data->size - data->bellow_pos;
-	if (data->a_pos - data->spliter + 1 < min && !data->lock_a)
+	if (data->a_pos - data->spliter + 1 < min && !data->lock_a && !data->too_small)
 		min = data->a_pos - data->spliter + 1;
-	if (data->b_pos - data->spliter + 2 < min && !data->lock_b)
-		min = data->b_pos - data->spliter + 1;
-	if (data->size - data->a_pos + 1 < min && !data->lock_a)
+	if (data->b_pos - data->spliter + 2 < min && !data->lock_b && !data->too_small)
+		min = data->b_pos - data->spliter + 2;
+	if (data->size - data->a_pos + 1 < min && !data->lock_a && !data->too_small)
 		min = data->size - data->a_pos + 1;
-	if (data->size - data->b_pos + 2 < min && !data->lock_b)
-		min = data->size - data->b_pos + 1;
+	if (data->size - data->b_pos + 2 < min && !data->lock_b && !data->too_small)
+		min = data->size - data->b_pos + 2;
 
 	if (min == data->above_pos - data->spliter)
 	{
@@ -187,14 +192,14 @@ void	calculate_best_move2(t_data *data) //write the 8 options with all the  //pr
 		data->relative = 4;
 		data->val = data->above_val;
 	}
-	else if (min == data->a_pos - data->spliter + 1 && !data->lock_a)
+	else if (min == data->a_pos - data->spliter + 1 && !data->lock_a && !data->too_small)
 	{
 		data->rotation = data->a_pos - data->spliter;
 		data->direction = 1;
 		data->relative = 3;
-		data->val = data->a_val;		if(data->a_val == -9)ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		data->val = data->a_val;		//if(data->a_val == -9)ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 	}
-	else if (min == data->size - data->a_pos + 1 && !data->lock_a)
+	else if (min == data->size - data->a_pos + 1 && !data->lock_a && !data->too_small)
 	{
 		data->rotation = data->size - data->a_pos;
 		data->direction = -1;
@@ -215,20 +220,31 @@ void	calculate_best_move2(t_data *data) //write the 8 options with all the  //pr
 		data->relative = 1;
 		data->val = data->bellow_val;
 	}
-	else if (min == data->b_pos - data->spliter + 2 && !data->lock_b)
-	{
-		data->rotation = data->b_pos - data->spliter;
-		data->direction = 1;
-		data->relative = 2;
-		data->val = data->b_val;
-	}
-	else if (min == data->size - data->b_pos + 2 && !data->lock_b)
+	else if (min == data->size - data->b_pos + 2 && !data->lock_b && !data->too_small)
 	{
 		data->rotation = data->size - data->b_pos;
 		data->direction = -1;
 		data->relative = 2;
 		data->val = data->b_val;
 	}
+	else if (min == data->b_pos - data->spliter + 2 && !data->lock_b && !data->too_small)
+	{
+		data->rotation = data->b_pos - data->spliter;
+		data->direction = 1;
+		data->relative = 2;
+		data->val = data->b_val;
+	}
+	/*else
+	{
+		ft_putstr("##########");
+		ft_putstr("\nMin : ");
+		ft_putnbr(min);
+		ft_putstr("\nVal : ");
+		ft_putnbr(data->val);
+		ft_putstr("\nToo_small : ");
+		ft_putnbr(data->too_small);		
+		ft_putstr("\n##########\n");
+	}*/
 
 	//above_pos up
 	//above_pos down
@@ -242,6 +258,28 @@ void	calculate_best_move2(t_data *data) //write the 8 options with all the  //pr
 	//une fois qu'on a le meilleur mouv
 }
 
+void	raw_optimize(t_data *data, int *i)
+{
+	if (*i < data->rotation && data->direction > 0)
+	{
+		rrw(data);
+		(*i)++;
+	}
+	else
+		raw(data);
+}
+
+void	rraw_optimize(t_data *data, int *i)
+{
+	if (*i < data->rotation && data->direction < 0)
+	{
+		rrrw(data);
+		(*i)++;
+	}
+	else
+		rraw(data);
+}
+
 void	execute_best_move_b2(t_data *data, int min, int max)
 {
 	int i;
@@ -249,74 +287,37 @@ void	execute_best_move_b2(t_data *data, int min, int max)
 	i = 0;
 	if (!data->bool_first_move)
 	{
-		/*if (data->relative == 1)
+		/*if (data->val == 16 || data->val == 18 || data->val == 26)
 		{
-			if (data->last_relative == 1) // there is not
-			{
-				raw(data);
-			}
-			if (data->last_relative == 2)
-				;
-			if (data->last_relative == 3)
-				;
-			if (data->last_relative == 4)
-				;
-		}
-		else if (data->relative == 2)
-		{
-			if (data->last_relative == 1)
-				raw(data);
-			if (data->last_relative == 2)
-				;
-			if (data->last_relative == 3)
-				;
-			if (data->last_relative == 4)
-				;
-		}
-		else if (data->relative == 3)
-		{
-			if (data->last_relative == 1)
-				raw(data);
-			if (data->last_relative == 2)
-				raw(data);
-			if (data->last_relative == 3)
-				;
-			if (data->last_relative == 4)
-				;
-		}
-		else if (data->relative == 4)
-		{
-			if (data->last_relative == 1)
-				raw(data);
-			if (data->last_relative == 2)
-				raw(data);
-			if (data->last_relative == 3)
-				raw(data);
-			if (data->last_relative == 4)
-				;
+			//write(1, ">", 1);
+			print_state(data);
+			//printf(">>%d     %d", data->list[0], data->val);
+			ft_putstr(">>>>list0:");
+			ft_putnbr(data->list[0]);
+			ft_putstr("    spliter-1:");
+			ft_putnbr(data->list[data->spliter - 1]);
+			ft_putstr("    val:");
+			ft_putnbr(data->val);
+			if (data->val < 0)
+				ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			ft_putstr("    min:");
+			ft_putnbr(min);
+			ft_putstr("    direction:");
+			ft_putnbr(data->direction);
+			ft_putstr("    rotation:");
+			ft_putnbr(data->rotation);
+			ft_putstr("\n");
 		}*/
-		write(1, ">", 1);
-		print_state(data);
-		//printf(">>%d     %d", data->list[0], data->val);
-		ft_putstr(">>>>");
-		ft_putnbr(data->list[0]);
-		ft_putstr("    ");
-		ft_putnbr(data->val);
-		if (data->val == -9)
-			ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		ft_putstr("\n");
 		if (data->list[data->spliter - 1] < data->val && data->list[data->spliter - 1] >= min && data->list[data->spliter - 1] < max)
-			raw(data);
+			raw_optimize(data, &i);
 		if (data->list[data->spliter - 1] < data->val && data->list[data->spliter - 1] >= min && data->list[data->spliter - 1] < max)
-			raw(data);
+			raw_optimize(data, &i);
 		if (data->list[data->spliter - 1] < data->val && data->list[data->spliter - 1] >= min && data->list[data->spliter - 1] < max)
-			raw(data);
+			raw_optimize(data, &i);
 		if (data->list[0] > data->val && data->list[0] >= min && data->list[0] < max)
-			rraw(data);
+			rraw_optimize(data, &i);
 		if (data->list[0] > data->val && data->list[0] >= min && data->list[0] < max)
-			rraw(data);
-		if (data->list[0] > data->val && data->list[0] >= min && data->list[0] < max)
-			rraw(data);
+			rraw_optimize(data, &i);
 	}
 	print_state(data);
 	if (data->relative == 1)
@@ -379,6 +380,7 @@ void	insersion_sort_b(t_data *data, int min, int max)
 	data->bool_first_move = 1;
 	data->lock_a = 0;
 	data->lock_b = 0;
+	data->too_small = 0;
 	while (i < data->size)
 	{
 		find_farthest_pos_b(data);
@@ -400,6 +402,76 @@ void	rotate_remainer(t_data *data, int pivot)
 {
 	while (data->list[data->spliter - 1] >= pivot)
 		raw(data);
+}
+
+void	manage_half_on_b(t_data *data, int min, int max) //du minimum a la moitie
+{
+	int i;
+	int pivot;
+	int pivot_min;
+	int pivot_max;
+	(void)min;
+	(void)max;
+
+	i = data->spliter;
+	pivot = median(data, data->spliter, data->size);
+	pivot_min = data->pivot_min;
+	pivot_max = data->pivot_max;
+	/*ft_putstr("@@@@@@@@@@@@@@@@@@@@\n");
+	ft_putnbr(data->size);
+	write(1, "\n", 1);
+	ft_putstr("@@@@@@@@@@@@@@@@@@@@\n");*/
+	while (i < data->size)
+	{
+		if (data->list[data->spliter] >= pivot)
+			paw(data);
+		else
+			rbw(data);
+		i++;
+	}
+	//ft_putstr("@@@@@@@@@@@@@@@@@@@@\n");
+	// ici on se retrouve avec le quart le plus petit en b
+	print_state(data);
+	insersion_sort_b(data, pivot_min, pivot);
+	print_state(data);
+	while (data->list[data->spliter - 1] < pivot)
+		raw(data);
+	print_state(data);
+	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] < max)
+		pbw(data);
+	insersion_sort_b(data, pivot, pivot_max);
+}
+
+
+void	quick_sort_ultimate(t_data *data)
+{
+	int i;
+	int pivot;
+	int pivot_min;
+	int pivot_max;
+
+	i = 0;
+	pivot = median(data, 0, data->size);
+	pivot_min = data->pivot_min;
+	pivot_max = data->pivot_max;
+	while (i < data->size)
+	{
+		if (data->list[data->spliter - 1] < pivot)
+			pbw(data);
+		else
+			raw(data);
+		i++;
+	}
+	print_state(data);
+
+	//insersion_sort_b(data, pivot_min, pivot);
+	manage_half_on_b(data, pivot_min, pivot);
+	print_state(data);
+	push_remainer_a_to_b(data, pivot);
+	print_state(data);
+	insersion_sort_b(data, pivot, pivot_max);
+	print_state(data);
+	rotate_remainer(data, pivot);
 }
 
 void	quick_sort(t_data *data)
@@ -424,9 +496,7 @@ void	quick_sort(t_data *data)
 	print_state(data);
 	insersion_sort_b(data, pivot, data->pivot_max);
 	print_state(data);
-	//write(1, "@\n", 2);
 	rotate_remainer(data, pivot);
-	//printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
 }
 
 void	sort_two_top_a(t_data *data)
@@ -528,8 +598,10 @@ void	sort(t_data *data)
 		sort_only_three(data);
 	else if (data->size < 6)
 		sort_four_five(data);
+	/*else if (data->size < 300)
+		quick_sort(data);*/
 	else
-		quick_sort(data);
+		quick_sort_ultimate(data);
 }
 
 int	ft_error(void)

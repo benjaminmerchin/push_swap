@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define PRINT 1
+# define PRINT 0
 # define ALWAYS_PRINT 0
 
 typedef	struct	s_data {
@@ -39,23 +39,24 @@ typedef	struct	s_data {
 	int		relative_down; //position par rapport au pivot
 	int		pivot_max; //valeur max dans la range du pivot
 	int		pivot_min; //valeur mun pour la range du pivot
+	int		too_small; //si la liste restante est plus petite que 4
 
-	long	above_pos;
-	long	a_pos;
-	long	above_val;
-	long	a_val;
-	long	equal_pos;
-	long	bellow_pos;
-	long	b_pos;
-	long	bellow_val;
-	long	b_val;
+	int	above_pos;
+	int	a_pos;
+	int	above_val;
+	int	a_val;
+	int	equal_pos;
+	int	bellow_pos;
+	int	b_pos;
+	int	bellow_val;
+	int	b_val;
 
 	int		lock_a;
 	int		lock_b;
 	int		val; //valeur de ce qu'on bouge
 
 
-	long		bool_first_move;
+	int		bool_first_move;
 }				t_data;
 
 void			sa(t_data *data);
