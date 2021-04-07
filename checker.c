@@ -66,6 +66,12 @@ void	ok_or_ko(t_data *data)
 	printf("\tNumber of Instructions: %d\n", data->instuctions);
 }
 
+int	ft_error(void)
+{
+	ft_putstr_fd("Error\n", 0);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	int i;
@@ -81,10 +87,14 @@ int	main(int ac, char **av)
 	data.size = ac - 1;
 	data.error = 0;
 	i = ac - 1;
+	if (ac > 10000)
+		return (ft_error());
 	if (ac == 2)
 	{
-		tab = ft_split(av[1], ' ');
 		i = ft_nbr_str(av[1], ' ');
+		if (i > 10000)
+			return (ft_error());
+		tab = ft_split(av[1], ' ');
 		data.spliter = i;
 		data.size = i;
 	}

@@ -47,6 +47,9 @@ typedef	struct	s_data {
 	long	bellow_val;
 	long	b_val;
 
+	int		lock_a;
+	int		lock_b;
+
 	int		bool_first_move;
 }				t_data;
 
