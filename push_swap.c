@@ -152,13 +152,13 @@ void	calculate_best_move2(t_data *data) //write the 8 options with all the  //pr
 		min = data->size - data->above_pos;
 	if (data->size - data->bellow_pos < min)
 		min = data->size - data->bellow_pos;
-	if (data->a_pos - data->spliter + 1 < min && !data->lock_a)/* + bloqueur*/
+	if (data->a_pos - data->spliter + 1 < min && !data->lock_a)
 		min = data->a_pos - data->spliter + 1;
-	if (data->b_pos - data->spliter + 1 < min && !data->lock_b)/* + bloqueur*/
+	if (data->b_pos - data->spliter + 1 < min && !data->lock_b)
 		min = data->b_pos - data->spliter + 1;
-	if (data->size - data->a_pos + 1 < min && !data->lock_a)/* + bloqueur*/
+	if (data->size - data->a_pos + 1 < min && !data->lock_a)
 		min = data->size - data->a_pos + 1;
-	if (data->size - data->b_pos + 1 < min && !data->lock_b)/* + bloqueur*/
+	if (data->size - data->b_pos + 1 < min && !data->lock_b)
 		min = data->size - data->b_pos + 1;
 
 	if (min == data->above_pos - data->spliter)
@@ -229,15 +229,59 @@ void	execute_best_move_b2(t_data *data)
 	i = 0;
 	if (!data->bool_first_move)
 	{
-		if (data->last_relative == 1)
-			raw(data);
-		/*if (data->last_relative == 2)
-			raw(data);
-		if (data->last_relative == 3)
-			raw(data);
-		if (data->last_relative == 4)
-			raw(data);*/
+		if (data->relative == 1)
+		{
+			if (data->last_relative == 1)
+				raw(data);
+			if (data->last_relative == 2)
+				;
+			if (data->last_relative == 3)
+				;
+			if (data->last_relative == 4)
+				;
+		}
+		if (data->relative == 2)
+		{
+			if (data->last_relative == 1)
+				raw(data);
+			if (data->last_relative == 2) /*impossible*/
+				;
+			if (data->last_relative == 3)
+				;
+			if (data->last_relative == 4)
+				;
+		}
+		if (data->relative == 3)
+		{
+			if (data->last_relative == 1)
+				raw(data);
+			if (data->last_relative == 2)
+				raw(data);
+			if (data->last_relative == 3) /*impossible*/
+				;
+			if (data->last_relative == 4)
+				;
+		}
+		if (data->relative == 4)
+		{
+			if (data->last_relative == 1)
+				raw(data);
+			if (data->last_relative == 2)
+				raw(data);
+			if (data->last_relative == 3)
+				raw(data);
+			if (data->last_relative == 4)
+				;
+		}
 	}
+	if (data->relative == 1)
+		data->lock_b = 0;
+	else if (data->relative == 2)
+		data->lock_b = 1;
+	else if (data->relative == 3)
+		data->lock_a = 1;
+	else if (data->relative == 4)
+		data->lock_a = 0;
 	data->bool_first_move = 0;
 	while(i < data->rotation)
 	{
@@ -288,8 +332,8 @@ void	insersion_sort_b(t_data *data)
 	pivot = median(data, data->spliter, data->size);
 	//printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
 	data->bool_first_move = 1;
-	data->lock_a = 1;
-	data->lock_b = 1;
+	data->lock_a = 0;
+	data->lock_b = 0;
 	while (i < data->size)
 	{
 		find_farthest_pos_b(data);
