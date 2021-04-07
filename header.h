@@ -17,7 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define PRINT 0
+# define PRINT 1
+# define ALWAYS_PRINT 0
 
 typedef	struct	s_data {
 	int		*list; // la liste qui contiens les variables a trier
@@ -36,6 +37,8 @@ typedef	struct	s_data {
 	int		last_relative; //ancien data->relative
 	int		relative_up; //position par rapport au pivot
 	int		relative_down; //position par rapport au pivot
+	int		pivot_max; //valeur max dans la range du pivot
+	int		pivot_min; //valeur mun pour la range du pivot
 
 	long	above_pos;
 	long	a_pos;
@@ -49,8 +52,10 @@ typedef	struct	s_data {
 
 	int		lock_a;
 	int		lock_b;
+	int		val; //valeur de ce qu'on bouge
 
-	int		bool_first_move;
+
+	long		bool_first_move;
 }				t_data;
 
 void			sa(t_data *data);
