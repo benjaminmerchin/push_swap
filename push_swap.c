@@ -244,27 +244,6 @@ void	execute_best_move_b2(t_data *data, int min, int max)
 	i = 0;
 	if (!data->bool_first_move)
 	{
-		/*if (data->val == 16 || data->val == 18 || data->val == 26)
-		{
-			//write(1, ">", 1);
-			print_state(data);
-			//printf(">>%d     %d", data->list[0], data->val);
-			ft_putstr(">>>>list0:");
-			ft_putnbr(data->list[0]);
-			ft_putstr("    spliter-1:");
-			ft_putnbr(data->list[data->spliter - 1]);
-			ft_putstr("    val:");
-			ft_putnbr(data->val);
-			if (data->val < 0)
-				ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			ft_putstr("    min:");
-			ft_putnbr(min);
-			ft_putstr("    direction:");
-			ft_putnbr(data->direction);
-			ft_putstr("    rotation:");
-			ft_putnbr(data->rotation);
-			ft_putstr("\n");
-		}*/
 		if (data->list[data->spliter - 1] < data->val && data->list[data->spliter - 1] >= min && data->list[data->spliter - 1] < max)
 			raw_optimize(data, &i);
 		if (data->list[data->spliter - 1] < data->val && data->list[data->spliter - 1] >= min && data->list[data->spliter - 1] < max)
@@ -329,11 +308,8 @@ void	execute_best_move_b(t_data *data) //combine up & down with the first operat
 void	insersion_sort_b(t_data *data, int min, int max)
 {
 	int i;
-	//int pivot;
 
 	i = data->spliter;
-	//pivot = median(data, data->spliter, data->size);
-	//printf(">>>pivot insersion_sort_b : %d<<<\n", pivot);
 	data->bool_first_move = 1;
 	data->lock_a = 0;
 	data->lock_b = 0;
@@ -361,6 +337,70 @@ void	rotate_remainer(t_data *data, int pivot)
 		raw(data);
 }
 
+void	manage_half_on_b_sub_sublevel(t_data *data, int min, int max) //du minimum a la moitie
+{
+	int i;
+	int pivot;
+	int pivot_min;
+	int pivot_max;
+	(void)min;
+	(void)max;
+
+	i = data->spliter;
+	pivot = median(data, data->spliter, data->size);
+	pivot_min = data->pivot_min;
+	pivot_max = data->pivot_max;
+	while (i < data->size)
+	{
+		if (data->list[data->spliter] >= pivot)
+			paw(data);
+		else
+			rbw(data);
+		i++;
+	}
+	print_state(data);
+	insersion_sort_b(data, pivot_min, pivot);
+	print_state(data);
+	while (data->list[data->spliter - 1] < pivot)
+		raw(data);
+	print_state(data);
+	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
+		pbw(data);
+	insersion_sort_b(data, pivot, pivot_max);
+}
+
+void	manage_half_on_b_sublevel(t_data *data, int min, int max) //du minimum a la moitie
+{
+	int i;
+	int pivot;
+	int pivot_min;
+	int pivot_max;
+	(void)min;
+	(void)max;
+
+	i = data->spliter;
+	pivot = median(data, data->spliter, data->size);
+	pivot_min = data->pivot_min;
+	pivot_max = data->pivot_max;
+	while (i < data->size)
+	{
+		if (data->list[data->spliter] >= pivot)
+			paw(data);
+		else
+			rbw(data);
+		i++;
+	}
+	print_state(data);
+	manage_half_on_b_sub_sublevel(data, pivot_min, pivot);
+	print_state(data);
+	while (data->list[data->spliter - 1] < pivot)
+		raw(data);
+	print_state(data);
+	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
+		pbw(data);
+	manage_half_on_b_sub_sublevel(data, pivot, pivot_max);
+}
+
 void	manage_half_on_b(t_data *data, int min, int max) //du minimum a la moitie
 {
 	int i;
@@ -374,10 +414,6 @@ void	manage_half_on_b(t_data *data, int min, int max) //du minimum a la moitie
 	pivot = median(data, data->spliter, data->size);
 	pivot_min = data->pivot_min;
 	pivot_max = data->pivot_max;
-	/*ft_putstr("@@@@@@@@@@@@@@@@@@@@\n");
-	ft_putnbr(data->size);
-	write(1, "\n", 1);
-	ft_putstr("@@@@@@@@@@@@@@@@@@@@\n");*/
 	while (i < data->size)
 	{
 		if (data->list[data->spliter] >= pivot)
@@ -386,17 +422,15 @@ void	manage_half_on_b(t_data *data, int min, int max) //du minimum a la moitie
 			rbw(data);
 		i++;
 	}
-	//ft_putstr("@@@@@@@@@@@@@@@@@@@@\n");
-	// ici on se retrouve avec le quart le plus petit en b
 	print_state(data);
-	insersion_sort_b(data, pivot_min, pivot);
+	manage_half_on_b_sublevel(data, pivot_min, pivot);
 	print_state(data);
 	while (data->list[data->spliter - 1] < pivot)
 		raw(data);
 	print_state(data);
 	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
 		pbw(data);
-	insersion_sort_b(data, pivot, pivot_max);
+	manage_half_on_b_sublevel(data, pivot, pivot_max);
 }
 
 
@@ -432,7 +466,7 @@ void	quick_sort_ultimate(t_data *data)
 		pbw(data);
 	print_state(data);
 	//insersion_sort_b(data, pivot, pivot_max);
-	manage_half_on_b(data, pivot, pivot_max); ///!\ sauf si pivot max est deja l'int max
+	manage_half_on_b(data, pivot, pivot_max);
 
 	print_state(data);
 	rotate_remainer(data, pivot);
@@ -562,8 +596,8 @@ void	sort(t_data *data)
 		sort_only_three(data);
 	else if (data->size < 6)
 		sort_four_five(data);
-	/*else if (data->size < 300)
-		quick_sort(data);*/
+	else if (data->size < 300)
+		quick_sort(data);
 	else
 		quick_sort_ultimate(data);
 }

@@ -12,6 +12,11 @@ CFLAGS	=	-Wall -Werror -Wextra#-g#-fsanitize=address#-Wextra
 
 all: $(NAME_C) $(NAME_P)
 
+bonus: all
+
+test:
+	@./play.sh
+
 $(NAME_C): $(OBJ_C)
 	@$(CC) $(CFLAGS) $(OBJ_C) -o $(NAME_C)
 #	@echo 'Checker Compilation OK'
