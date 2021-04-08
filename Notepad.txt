@@ -62,24 +62,13 @@ make re && ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG
 make re && ./push_swap $ARG
 
 Todo demain : 
-- descendre sous les 700 en moyenne pour 100
-	- passer a la recherche des quatres valeurs les plus eloignees
-	- ne jamais cumuler deux fois de suite les valeurs les plus proches parmis les plus eloignees.
-- commencer la strategie pour 500
-	-
 - descendre sous les 5500 pour 500
-
-Todo apres demain :
 - Norme
 - faire 5 petits bonus pour 125%
 
 Liste des bonus :
-- Afficher les etapes sur les mouvements
+- Afficher les etapes sur les mouvements sous forme de ligne
 - Afficher un compteur de coups
-- Main de test
-- Afficher les deux derniers coups en couleurs
-- 
-
-
-
-20 9 27 21 24 18 12 16 26 28 19 23 10 1 8 22 4 6 7 29 2 5 30 25 17 13 15 11 14 3
+- Couleurs
+- Afficher les etapes sur les mouvements sous forme de pile
+- scrypt de test

@@ -18,28 +18,6 @@ int		ft_abs(int a)
 	return (a);
 }
 
-int		min_up(t_data *data, int a, int b)
-{
-	if (a <= b) //doner la priorite a la val above si on va de b vers a
-	{
-		data->relative_up = 1;
-		return (a);
-	}
-	data->relative_up = -1;
-	return (b);
-}
-
-int		min_down(t_data *data, int a, int b)
-{
-	if (a <= b) //doner la priorite a la val above si on va de b vers a
-	{
-		data->relative_down = 1;
-		return (a);
-	}
-	data->relative_down = -1;
-	return (b);
-}
-
 void	find_three_closest_pos_b(t_data *data, int pivot) //outdated function
 {
 	int i;
@@ -137,27 +115,6 @@ void	find_farthest_pos_b(t_data *data) // -2147483648 // 2147483647
 	ft_putstr("\n");*/
 }
 
-void	calculate_best_move(t_data *data)
-{
-	int up;
-	int down;
-
-	up = min_up(data, data->above_pos - data->spliter, data->bellow_pos - data->spliter);
-	down = min_down(data, data->size - data->above_pos, data->size - data->bellow_pos);
-	if (up <= down)
-	{
-		data->rotation = up;
-		data->direction = 1;
-		data->relative = data->relative_up;
-	}
-	else
-	{
-		data->rotation = down;
-		data->direction = -1;
-		data->relative = data->relative_down;
-	}
-}
-
 void	calculate_best_move2(t_data *data) //write the 8 options with all the  //priority for 	above
 {
 	int min;
@@ -197,7 +154,7 @@ void	calculate_best_move2(t_data *data) //write the 8 options with all the  //pr
 		data->rotation = data->a_pos - data->spliter;
 		data->direction = 1;
 		data->relative = 3;
-		data->val = data->a_val;		//if(data->a_val == -9)ft_putstr("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		data->val = data->a_val;
 	}
 	else if (min == data->size - data->a_pos + 1 && !data->lock_a && !data->too_small)
 	{
@@ -437,7 +394,7 @@ void	manage_half_on_b(t_data *data, int min, int max) //du minimum a la moitie
 	while (data->list[data->spliter - 1] < pivot)
 		raw(data);
 	print_state(data);
-	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] < max)
+	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
 		pbw(data);
 	insersion_sort_b(data, pivot, pivot_max);
 }
@@ -465,11 +422,18 @@ void	quick_sort_ultimate(t_data *data)
 	print_state(data);
 
 	//insersion_sort_b(data, pivot_min, pivot);
-	manage_half_on_b(data, pivot_min, pivot);
+	manage_half_on_b(data, pivot_min, pivot - 1);
 	print_state(data);
-	push_remainer_a_to_b(data, pivot);
+
+	//push_remainer_a_to_b(data, pivot);
+	while (data->list[data->spliter - 1] < pivot)
+		raw(data);
+	while (data->list[data->spliter - 1] >= pivot)
+		pbw(data);
 	print_state(data);
-	insersion_sort_b(data, pivot, pivot_max);
+	//insersion_sort_b(data, pivot, pivot_max);
+	manage_half_on_b(data, pivot, pivot_max); ///!\ sauf si pivot max est deja l'int max
+
 	print_state(data);
 	rotate_remainer(data, pivot);
 }
@@ -625,7 +589,7 @@ int main(int ac, char **av)
 	data.size = ac - 1;
 	i = ac - 1;
 	if (ac > 10000)
-			return (ft_error());
+		return (ft_error());
 	if (ac == 2)
 	{
 		i = ft_nbr_str(av[1], ' ');
