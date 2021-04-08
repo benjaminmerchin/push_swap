@@ -114,4 +114,7 @@ void			rraw_optimize(t_data *data, int *i);
 
 void			execute_instruction(t_data *data);
 
+void			push_half_b(t_data *data, int pivot);
+void			push_half_a(t_data *data, int pivot);
+
 #endif

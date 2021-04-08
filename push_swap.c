@@ -12,35 +12,6 @@
 
 #include "header.h"
 
-void	push_half_b(t_data *data, int pivot)
-{
-	int i;
-	
-	i = 0;
-	while (i < data->size)
-	{
-		if (data->list[data->spliter - 1] < pivot)
-			pbw(data);
-		else
-			raw(data);
-		i++;
-	}
-}
-void	push_half_a(t_data *data, int pivot)
-{
-	int i;
-
-	i = 0;
-	while (i < data->size)
-	{
-		if (data->list[data->spliter] >= pivot)
-			paw(data);
-		else
-			rbw(data);
-		i++;
-	}
-}
-
 void	find_farthest_pos_b(t_data *data)
 {
 	int i;
@@ -229,93 +200,69 @@ void	insersion_sort_b(t_data *data, int min, int max)
 
 void	manage_half_on_b_sub_sublevel(t_data *data, int min, int max)
 {
-	int i;
 	int pivot;
 	int pivot_min;
 	int pivot_max;
 
 	(void)min;
-	i = data->spliter;
 	pivot = median(data, data->spliter, data->size);
 	pivot_min = data->pivot_min;
 	pivot_max = data->pivot_max;
-	while (i < data->size)
-	{
-		if (data->list[data->spliter] >= pivot)
-			paw(data);
-		else
-			rbw(data);
-		i++;
-	}
+	push_half_a(data, pivot);
 	print_state(data);
 	insersion_sort_b(data, pivot_min, pivot);
 	print_state(data);
 	while (data->list[data->spliter - 1] < pivot)
 		raw(data);
 	print_state(data);
-	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
+	while (data->list[data->spliter - 1] >= pivot
+	&& data->list[data->spliter - 1] <= max)
 		pbw(data);
 	insersion_sort_b(data, pivot, pivot_max);
 }
 
 void	manage_half_on_b_sublevel(t_data *data, int min, int max)
 {
-	int i;
 	int pivot;
 	int pivot_min;
 	int pivot_max;
 
 	(void)min;
-	i = data->spliter;
 	pivot = median(data, data->spliter, data->size);
 	pivot_min = data->pivot_min;
 	pivot_max = data->pivot_max;
-	while (i < data->size)
-	{
-		if (data->list[data->spliter] >= pivot)
-			paw(data);
-		else
-			rbw(data);
-		i++;
-	}
+	push_half_a(data, pivot);
 	print_state(data);
 	manage_half_on_b_sub_sublevel(data, pivot_min, pivot);
 	print_state(data);
 	while (data->list[data->spliter - 1] < pivot)
 		raw(data);
 	print_state(data);
-	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
+	while (data->list[data->spliter - 1] >= pivot
+	&& data->list[data->spliter - 1] <= max)
 		pbw(data);
 	manage_half_on_b_sub_sublevel(data, pivot, pivot_max);
 }
 
 void	manage_half_on_b(t_data *data, int min, int max)
 {
-	int i;
 	int pivot;
 	int pivot_min;
 	int pivot_max;
 	(void)min;
 
-	i = data->spliter;
 	pivot = median(data, data->spliter, data->size);
 	pivot_min = data->pivot_min;
 	pivot_max = data->pivot_max;
-	while (i < data->size)
-	{
-		if (data->list[data->spliter] >= pivot)
-			paw(data);
-		else
-			rbw(data);
-		i++;
-	}
+	push_half_a(data, pivot);
 	print_state(data);
 	manage_half_on_b_sublevel(data, pivot_min, pivot);
 	print_state(data);
 	while (data->list[data->spliter - 1] < pivot)
 		raw(data);
 	print_state(data);
-	while (data->list[data->spliter - 1] >= pivot && data->list[data->spliter - 1] <= max)
+	while (data->list[data->spliter - 1] >= pivot
+	&& data->list[data->spliter - 1] <= max)
 		pbw(data);
 	manage_half_on_b_sublevel(data, pivot, pivot_max);
 }
@@ -377,6 +324,19 @@ void	sort(t_data *data)
 		quick_sort_ultimate(data);
 }
 
+int main_extension(int ac, char **av, char ***tab, t_data *data)
+{
+	(void)ac;
+	(void)av;
+	print_state(data);
+	sort(data);
+	print_state(data);
+	free(data->list);
+	if (ac == 2)
+		ft_free(*tab, ft_nbr_str(av[1], ' '));
+	return (0);
+}
+
 int main(int ac, char **av)
 {
 	int i;
@@ -420,11 +380,5 @@ int main(int ac, char **av)
 			return(ft_free_print_error(&data, ac, av, &tab));
 		i--;
 	}
-	print_state(&data);
-	sort(&data);
-	print_state(&data);
-	free(data.list);
-	if (ac == 2)
-		ft_free(tab, ft_nbr_str(av[1], ' '));
-	return (0);
+	return (main_extension(ac, av, &tab, &data));
 }
