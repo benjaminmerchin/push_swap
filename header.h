@@ -18,7 +18,6 @@
 # include <stdlib.h>
 
 # define PRINT 0
-# define ALWAYS_PRINT 0
 
 typedef	struct	s_data {
 	int		*list;
@@ -28,6 +27,7 @@ typedef	struct	s_data {
 	int		error;
 	int		instuctions;
 	int		rrr;
+	int		aaa;
 
 	int		pivot;
 	int		rotation;
@@ -41,20 +41,26 @@ typedef	struct	s_data {
 	int		pivot_min;
 	int		too_small;
 
-	int	above_pos;
-	int	a_pos;
-	int	above_val;
-	int	a_val;
-	int	equal_pos;
-	int	bellow_pos;
-	int	b_pos;
-	int	bellow_val;
-	int	b_val;
+	int		above_pos;
+	int		a_pos;
+	int		above_val;
+	int		a_val;
+	int		equal_pos;
+	int		bellow_pos;
+	int		b_pos;
+	int		bellow_val;
+	int		b_val;
 
 	int		lock_a;
 	int		lock_b;
 	int		val;
 	int		bool_first_move;
+
+	int		print;
+	int		show_number;
+	int		fancy;
+	int		color;
+	int		ac;
 }				t_data;
 
 void			sa(t_data *data);
@@ -116,6 +122,7 @@ void			execute_instruction_checker(t_data *data);
 
 void			push_half_b(t_data *data, int pivot);
 void			push_half_a(t_data *data, int pivot);
+void			initialize_main(t_data *data, int ac);
 
 void			insersion_sort_b(t_data *data, int min, int max);
 void			manage_half_on_b_sub_sublevel(t_data *data, int min, int max);
@@ -125,5 +132,7 @@ void			manage_half_on_b(t_data *data, int min, int max);
 void			find_farthest_pos_b(t_data *data);
 void			calculate_best_move(t_data *data);
 void			execute_best_move_b(t_data *data, int min, int max);
+
+void			manage_bonus(t_data *data, int *ac, char ***av);
 
 #endif

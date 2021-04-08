@@ -12,6 +12,13 @@
 
 #include "header.h"
 
+/*
+** Bonus List:
+** -n to show the number of instructions in ./checker
+** -p to print some states in ./push_swap
+** make test in the terminal to run a script
+*/
+
 void	quick_sort_ultimate(t_data *data)
 {
 	int pivot;
@@ -69,29 +76,29 @@ void	sort(t_data *data)
 		quick_sort_ultimate(data);
 }
 
-int		main_extension(int ac, char **av, char ***tab, t_data *data, int i)
+int		main_extension(char **av, char ***tab, t_data *data, int i)
 {
 	while (i > 0)
 	{
-		if (ac == 2)
+		if (data->ac == 2)
 		{
 			data->list[data->spliter - i] = ft_atoi((*tab)[i - 1], data);
 			security_duplicates(data, data->spliter - i);
 		}
 		else
 		{
-			data->list[ac - i - 1] = ft_atoi(av[i], data);
-			security_duplicates(data, ac - i - 1);
+			data->list[data->ac - i - 1] = ft_atoi(av[i], data);
+			security_duplicates(data, data->ac - i - 1);
 		}
 		if (data->error == 1)
-			return (ft_free_print_error(data, ac, av, tab));
+			return (ft_free_print_error(data, data->ac, av, tab));
 		i--;
 	}
 	print_state(data);
 	sort(data);
 	print_state(data);
 	free(data->list);
-	if (ac == 2)
+	if (data->ac == 2)
 		ft_free(*tab, ft_nbr_str(av[1], ' '));
 	return (0);
 }
@@ -102,12 +109,10 @@ int		main(int ac, char **av)
 	t_data	data;
 	char	**tab;
 
-	data.error = 0;
-	data.rrr = 0;
 	if (ac == 1)
 		return (0);
-	data.spliter = ac - 1;
-	data.size = ac - 1;
+	initialize_main(&data, ac);
+	manage_bonus(&data, &ac, &av);
 	i = ac - 1;
 	if (ac > 10000)
 		return (ft_error());
@@ -122,5 +127,5 @@ int		main(int ac, char **av)
 	}
 	if (!(data.list = malloc(sizeof(int) * data.size)))
 		return (free_tab_print_error(ac, av, &tab));
-	return (main_extension(ac, av, &tab, &data, i));
+	return (main_extension(av, &tab, &data, i));
 }

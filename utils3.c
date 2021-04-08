@@ -41,3 +41,16 @@ void	push_half_a(t_data *data, int pivot)
 		i++;
 	}
 }
+
+void	initialize_main(t_data *data, int ac)
+{
+	data->rrr = 0;
+	data->spliter = ac - 1;
+	data->size = ac - 1;
+	data->error = 0;
+	data->print = 0;
+	data->show_number = 0;
+	data->fancy = 0;
+	data->color = 0;
+	data->ac = ac;
+}

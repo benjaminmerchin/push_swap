@@ -12,6 +12,14 @@
 
 #include "header.h"
 
+void	bn_or_number_of_instructions(t_data *data)
+{
+	if (data->show_number)
+		printf("\tNumber of Instructions: %d\n", data->instuctions);
+	else
+		write(1, "\n", 1);
+}
+
 void	ok_or_ko(t_data *data)
 {
 	int i;
@@ -20,7 +28,7 @@ void	ok_or_ko(t_data *data)
 	if (data->size != data->spliter)
 	{
 		write(1, "KO", 2);
-		printf("\tNumber of Instructions: %d\n", data->instuctions);
+		bn_or_number_of_instructions(data);
 		return ;
 	}
 	while (i < data->size - 1)
@@ -30,15 +38,15 @@ void	ok_or_ko(t_data *data)
 		else
 		{
 			write(1, "KO", 2);
-			printf("\tNumber of Instructions: %d\n", data->instuctions);
+			bn_or_number_of_instructions(data);
 			return ;
 		}
 	}
 	write(1, "OK", 2);
-	printf("\tNumber of Instructions: %d\n", data->instuctions);
+	bn_or_number_of_instructions(data);
 }
 
-int		main_extension_two(int ac, char **av, int i, char ***tab, t_data *data)
+int		main_extension_two(char **av, int i, char ***tab, t_data *data)
 {
 	char c;
 
@@ -53,38 +61,38 @@ int		main_extension_two(int ac, char **av, int i, char ***tab, t_data *data)
 			execute_instruction_checker(data);
 		}
 		if (data->error)
-			return (ft_free_print_error(data, ac, av, tab));
+			return (ft_free_print_error(data, data->ac, av, tab));
 	}
 	ok_or_ko(data);
 	free(data->list);
-	if (ac == 2)
+	if (data->ac == 2)
 		ft_free(*tab, ft_nbr_str(av[1], ' '));
 	return (0);
 }
 
-int		main_extension(int ac, char **av, int i, char ***tab, t_data *data)
+int		main_extension(char **av, int i, char ***tab, t_data *data)
 {
 	if (!(data->list = malloc(sizeof(int) * data->size)))
-		return (free_tab_print_error(ac, av, tab));
+		return (free_tab_print_error(data->ac, av, tab));
 	while (i > 0)
 	{
-		if (ac == 2)
+		if (data->ac == 2)
 		{
 			data->list[data->spliter - i] = ft_atoi((*tab)[i - 1], data);
 			security_duplicates(data, data->spliter - i);
 		}
 		else
 		{
-			data->list[ac - i - 1] = ft_atoi(av[i], data);
-			security_duplicates(data, ac - i - 1);
+			data->list[data->ac - i - 1] = ft_atoi(av[i], data);
+			security_duplicates(data, data->ac - i - 1);
 		}
 		if (data->error == 1)
-			return (ft_free_print_error(data, ac, av, tab));
+			return (ft_free_print_error(data, data->ac, av, tab));
 		i--;
 	}
 	i = 0;
 	data->instuctions = 0;
-	return (main_extension_two(ac, av, i, tab, data));
+	return (main_extension_two(av, i, tab, data));
 }
 
 int		main(int ac, char **av)
@@ -93,14 +101,10 @@ int		main(int ac, char **av)
 	t_data	data;
 	char	**tab;
 
-	tab = NULL;
-	data.error = 0;
-	data.rrr = 0;
 	if (ac == 1)
 		return (0);
-	data.spliter = ac - 1;
-	data.size = ac - 1;
-	data.error = 0;
+	initialize_main(&data, ac);
+	manage_bonus(&data, &ac, &av);
 	i = ac - 1;
 	if (ac > 10000)
 		return (ft_error());
@@ -113,5 +117,5 @@ int		main(int ac, char **av)
 		data.spliter = i;
 		data.size = i;
 	}
-	return (main_extension(ac, av, i, &tab, &data));
+	return (main_extension(av, i, &tab, &data));
 }

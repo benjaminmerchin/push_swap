@@ -17,7 +17,7 @@ void	print_state(t_data *data)
 	int i;
 
 	i = 0;
-	if (!PRINT)
+	if (!data->print || data->size == 0)
 		return ;
 	while (i < data->size)
 	{
