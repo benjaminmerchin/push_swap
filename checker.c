@@ -53,7 +53,7 @@ int		main_extension_two(int ac, char **av, int i, char ***tab, t_data *data)
 			execute_instruction_checker(data);
 		}
 		if (data->error)
-			return(ft_free_print_error(data, ac, av, tab));
+			return (ft_free_print_error(data, ac, av, tab));
 	}
 	ok_or_ko(data);
 	free(data->list);
@@ -79,7 +79,7 @@ int		main_extension(int ac, char **av, int i, char ***tab, t_data *data)
 			security_duplicates(data, ac - i - 1);
 		}
 		if (data->error == 1)
-			return(ft_free_print_error(data, ac, av, tab));
+			return (ft_free_print_error(data, ac, av, tab));
 		i--;
 	}
 	i = 0;
@@ -89,10 +89,10 @@ int		main_extension(int ac, char **av, int i, char ***tab, t_data *data)
 
 int		main(int ac, char **av)
 {
-	int i;
-	t_data data;
-	char **tab;
-	
+	int		i;
+	t_data	data;
+	char	**tab;
+
 	tab = NULL;
 	data.error = 0;
 	data.rrr = 0;

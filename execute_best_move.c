@@ -24,7 +24,7 @@ void	execute_best_move_b_2(t_data *data, int i)
 	else if (data->relative == 4)
 		data->lock_a = 0;
 	data->bool_first_move = 0;
-	while(i < data->rotation)
+	while (i < data->rotation)
 	{
 		if (data->direction > 0)
 			rbw(data);

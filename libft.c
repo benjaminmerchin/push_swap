@@ -31,7 +31,7 @@ void	ft_putnbr(int n)
 		ft_putchar(nbr + '0');
 }
 
-int	ft_atoi(const char *str, t_data *data)
+int		ft_atoi(const char *str, t_data *data)
 {
 	int		i;
 	int		sign;
@@ -54,7 +54,7 @@ int	ft_atoi(const char *str, t_data *data)
 	return (nbr * sign);
 }
 
-int	ft_strncmp(char *s1, char *s2, int n)
+int		ft_strncmp(char *s1, char *s2, int n)
 {
 	int i;
 

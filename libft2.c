@@ -22,7 +22,7 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-int	ft_strlen(char *s)
+int		ft_strlen(char *s)
 {
 	int i;
 

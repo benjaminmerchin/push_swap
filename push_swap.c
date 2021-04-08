@@ -69,7 +69,7 @@ void	sort(t_data *data)
 		quick_sort_ultimate(data);
 }
 
-int main_extension(int ac, char **av, char ***tab, t_data *data, int i)
+int		main_extension(int ac, char **av, char ***tab, t_data *data, int i)
 {
 	while (i > 0)
 	{
@@ -84,7 +84,7 @@ int main_extension(int ac, char **av, char ***tab, t_data *data, int i)
 			security_duplicates(data, ac - i - 1);
 		}
 		if (data->error == 1)
-			return(ft_free_print_error(data, ac, av, tab));
+			return (ft_free_print_error(data, ac, av, tab));
 		i--;
 	}
 	print_state(data);
@@ -96,12 +96,12 @@ int main_extension(int ac, char **av, char ***tab, t_data *data, int i)
 	return (0);
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
-	int i;
-	t_data data;
-	char **tab;
-	
+	int		i;
+	t_data	data;
+	char	**tab;
+
 	data.error = 0;
 	data.rrr = 0;
 	if (ac == 1)

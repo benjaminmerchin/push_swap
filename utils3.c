@@ -15,7 +15,7 @@
 void	push_half_b(t_data *data, int pivot)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < data->size)
 	{

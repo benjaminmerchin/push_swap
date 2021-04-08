@@ -16,7 +16,7 @@ void	raw(t_data *data)
 {
 	int i;
 	int temp;
-	
+
 	i = data->spliter - 1;
 	if (data->spliter < 2)
 		return ;
@@ -35,7 +35,7 @@ void	rbw(t_data *data)
 {
 	int i;
 	int temp;
-	
+
 	i = data->spliter;
 	if (data->size - data->spliter < 2)
 		return ;

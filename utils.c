@@ -34,7 +34,7 @@ void	print_state(t_data *data)
 	ft_putchar('\n');
 }
 
-int	ft_free_print_error(t_data *data, int ac, char **av, char ***tab)
+int		ft_free_print_error(t_data *data, int ac, char **av, char ***tab)
 {
 	free(data->list);
 	if (ac == 2)

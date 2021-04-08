@@ -81,8 +81,8 @@ void	manage_half_on_b(t_data *data, int min, int max)
 	int pivot;
 	int pivot_min;
 	int pivot_max;
-	(void)min;
 
+	(void)min;
 	pivot = median(data, data->spliter, data->size);
 	pivot_min = data->pivot_min;
 	pivot_max = data->pivot_max;

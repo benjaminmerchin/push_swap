@@ -34,7 +34,7 @@ void	sbw(t_data *data)
 	temp = data->list[data->spliter];
 	data->list[data->spliter] = data->list[data->spliter + 1];
 	data->list[data->spliter + 1] = temp;
-	if (data->rrr == 0)	
+	if (data->rrr == 0)
 		ft_putstr("sb\n");
 }
 

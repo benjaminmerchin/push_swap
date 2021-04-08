@@ -17,7 +17,8 @@ void	find_farthest_pos_b_2(t_data *data, int i)
 	i = data->spliter;
 	while (i < data->size)
 	{
-		if (data->list[i] == data->above_val || data->list[i] == data->bellow_val)
+		if (data->list[i] == data->above_val
+		|| data->list[i] == data->bellow_val)
 			;
 		else
 		{

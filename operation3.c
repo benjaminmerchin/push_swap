@@ -16,7 +16,7 @@ void	rra(t_data *data)
 {
 	int i;
 	int temp;
-	
+
 	i = 0;
 	if (data->spliter < 2)
 		return ;
@@ -33,7 +33,7 @@ void	rrb(t_data *data)
 {
 	int i;
 	int temp;
-	
+
 	i = data->size - 1;
 	if (data->size - data->spliter < 2)
 		return ;

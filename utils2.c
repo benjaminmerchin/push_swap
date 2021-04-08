@@ -12,7 +12,7 @@
 
 #include "header.h"
 
-int	ft_error(void)
+int		ft_error(void)
 {
 	ft_putstr_fd("Error\n", 0);
 	return (0);

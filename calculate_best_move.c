@@ -14,14 +14,16 @@
 
 void	calculate_best_move3(t_data *data, int min)
 {
-	if (min == data->size - data->b_pos + 2 && !data->lock_b && !data->too_small)
+	if (min == data->size - data->b_pos + 2
+	&& !data->lock_b && !data->too_small)
 	{
 		data->rotation = data->size - data->b_pos;
 		data->direction = -1;
 		data->relative = 2;
 		data->val = data->b_val;
 	}
-	else if (min == data->b_pos - data->spliter + 2 && !data->lock_b && !data->too_small)
+	else if (min == data->b_pos - data->spliter + 2
+	&& !data->lock_b && !data->too_small)
 	{
 		data->rotation = data->b_pos - data->spliter;
 		data->direction = 1;
@@ -32,7 +34,8 @@ void	calculate_best_move3(t_data *data, int min)
 
 void	calculate_best_move2(t_data *data, int min)
 {
-	if (min == data->size - data->a_pos + 1 && !data->lock_a && !data->too_small)
+	if (min == data->size - data->a_pos + 1
+	&& !data->lock_a && !data->too_small)
 	{
 		data->rotation = data->size - data->a_pos;
 		data->direction = -1;
@@ -73,7 +76,8 @@ void	calculate_best_move1(t_data *data, int min)
 		data->relative = 4;
 		data->val = data->above_val;
 	}
-	else if (min == data->a_pos - data->spliter + 1 && !data->lock_a && !data->too_small)
+	else if (min == data->a_pos - data->spliter + 1
+	&& !data->lock_a && !data->too_small)
 	{
 		data->rotation = data->a_pos - data->spliter;
 		data->direction = 1;
@@ -84,7 +88,7 @@ void	calculate_best_move1(t_data *data, int min)
 		calculate_best_move2(data, min);
 }
 
-void		calculate_best_move(t_data *data)
+void	calculate_best_move(t_data *data)
 {
 	int min;
 
