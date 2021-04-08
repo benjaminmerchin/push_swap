@@ -11,14 +11,17 @@
 /* ************************************************************************** */
 
 #include "header.h"
+#include <time.h>
 
 void	print_state_fancy(t_data *data)
 {
 	int i;
+	int milli_seconds;
 
 	i = 0;
 	if (!data->fancy || data->size == 0)
 		return ;
+	ft_putstr("A: ");
 	while (i < data->size)
 	{
 		ft_putnbr(data->list[i]);
@@ -28,9 +31,14 @@ void	print_state_fancy(t_data *data)
 			ft_putchar(' ');
 		i++;
 	}
-	ft_putchar('\t');
-	ft_putstr("spliter : ");
-	ft_putnbr(data->spliter);
+	ft_putstr(":B");
+	while (i < 100000000)
+		i++;
+	clock_t start_time = clock();
+	milli_seconds = 1000 * 1;
+	while (clock() < start_time + milli_seconds)
+		;
+	system("clear");
 	ft_putchar('\n');
 }
 
@@ -46,6 +54,7 @@ void		manage_bonus2(t_data *data, int *ac, char ***av)
 		data->size--;
 		data->ac--;
 		data->fancy = 1;
+		system("clear");
 		manage_bonus(data, ac, av);
 	}
 	if (*ac < 2)

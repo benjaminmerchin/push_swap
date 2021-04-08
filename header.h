@@ -134,5 +134,6 @@ void			calculate_best_move(t_data *data);
 void			execute_best_move_b(t_data *data, int min, int max);
 
 void			manage_bonus(t_data *data, int *ac, char ***av);
+void			print_state_fancy(t_data *data);
 
 #endif

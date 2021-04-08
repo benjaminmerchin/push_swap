@@ -17,7 +17,7 @@ void	bn_or_number_of_instructions(t_data *data)
 	if (data->show_number)
 		printf("\tNumber of Instructions: %d\n", data->instuctions);
 	else
-		write(1, "\n", 1);
+		printf("\n");
 }
 
 void	ok_or_ko(t_data *data)
@@ -42,7 +42,9 @@ void	ok_or_ko(t_data *data)
 			return ;
 		}
 	}
-	write(1, "OK", 2);
+	if (data->color)
+		printf("\033[0;32m");
+	printf("OK");
 	bn_or_number_of_instructions(data);
 }
 

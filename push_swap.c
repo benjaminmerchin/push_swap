@@ -13,9 +13,11 @@
 #include "header.h"
 
 /*
-** Bonus List:
+** Bonus List (5 in total):
 ** -n to show the number of instructions in ./checker
 ** -p to print some states in ./push_swap
+** -f to display each state of the list evolution
+** -c to display in color
 ** make test in the terminal to run a script
 */
 

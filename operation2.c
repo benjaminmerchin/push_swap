@@ -27,6 +27,11 @@ void	ra(t_data *data)
 		i--;
 	}
 	data->list[i] = temp;
+	if (data->aaa == 0 && data->fancy)
+	{
+		ft_putstr("ra\n");
+		print_state_fancy(data);
+	}
 }
 
 void	rb(t_data *data)
@@ -44,10 +49,22 @@ void	rb(t_data *data)
 		i++;
 	}
 	data->list[i] = temp;
+	if (data->aaa == 0 && data->fancy)
+	{
+		ft_putstr("rb\n");
+		print_state_fancy(data);
+	}
 }
 
 void	rr(t_data *data)
 {
+	data->aaa = 1;
 	ra(data);
 	rb(data);
+	data->aaa = 0;
+	if (data->fancy)
+	{
+		ft_putstr("rr\n");
+		print_state_fancy(data);
+	}
 }
