@@ -3,7 +3,7 @@ NAME_P	=	push_swap
 CC		=	clang
 HEADER	=	header.h
 OBJDIR	=	object
-SRC		=	libft.c operation.c operation_write.c utils.c ft_split.c median.c
+SRC		=	libft.c operation.c operation_write.c utils.c utils2.c ft_split.c median.c small_list.c
 SRC_C	=	checker.c $(SRC)
 SRC_P	=	push_swap.c $(SRC)
 OBJ_C 	=	$(addprefix $(OBJDIR)/, $(SRC_C:.c=.o))

@@ -96,11 +96,23 @@ char			**ft_free(char **tab, int nbr);
 int				ft_nbr_str(char *s, char c);
 int				ft_free_print_error(t_data *data, int ac, char **av, char ***tab);
 void			security_duplicates(t_data *data, int i);
-int		already_sorted(t_data *data);
-int	free_tab_print_error(int ac, char **av, char ***tab);
-
+int				already_sorted(t_data *data);
+int				free_tab_print_error(int ac, char **av, char ***tab);
 
 void			print_state(t_data *data);
 int				median(t_data *data, int begin, int end);
+
+void			push_min_three_b_to_a(t_data *data);
+void			push_min_thwo_b_to_a(t_data *data);
+void			sort_two_top_a(t_data *data);
+void			sort_only_three(t_data *data);
+void			sort_four_five(t_data *data);
+
+int				ft_error(void);
+void			push_remainer_a_to_b(t_data *data, int pivot);
+void			rotate_remainer(t_data *data, int pivot);
+void			raw_optimize(t_data *data, int *i);
+void			rraw_optimize(t_data *data, int *i);
+
 
 #endif

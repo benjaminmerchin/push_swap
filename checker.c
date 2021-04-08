@@ -66,12 +66,6 @@ void	ok_or_ko(t_data *data)
 	printf("\tNumber of Instructions: %d\n", data->instuctions);
 }
 
-int	ft_error(void)
-{
-	ft_putstr_fd("Error\n", 0);
-	return (0);
-}
-
 int	main(int ac, char **av)
 {
 	int i;
