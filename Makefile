@@ -3,12 +3,13 @@ NAME_P	=	push_swap
 CC		=	clang
 HEADER	=	header.h
 OBJDIR	=	object
-SRC		=	libft.c operation.c operation_write.c utils.c utils2.c ft_split.c median.c small_list.c
+SRC		=	libft.c operation.c operation_write.c utils.c utils2.c ft_split.c median.c small_list.c \
+			execute_instructions.c
 SRC_C	=	checker.c $(SRC)
 SRC_P	=	push_swap.c $(SRC)
 OBJ_C 	=	$(addprefix $(OBJDIR)/, $(SRC_C:.c=.o))
 OBJ_P 	=	$(addprefix $(OBJDIR)/, $(SRC_P:.c=.o))
-CFLAGS	=	-Wall -Werror -Wextra#-g#-fsanitize=address#-Wextra
+CFLAGS	=	-Wall -Wextra -Werror -g#-fsanitize=address
 
 all: $(NAME_C) $(NAME_P)
 

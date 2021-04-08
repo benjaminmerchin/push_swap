@@ -54,16 +54,6 @@ int		median(t_data *data, int begin, int end)
 	}
 	sort_list(&dup, end - begin);
 	i = dup[(end - begin) / 2];
-	/*printf(">>>dup[3] %d<<<\n", dup[3]);
-	for(int j = 0; j < end - begin ;j++)
-		printf("%d ", dup[j]);
-	printf("\n>>>i: %d<<<\n", i);
-	printf(">>>end: %d<<<\n", end);
-	printf(">>>begin: %d<<<\n", begin);
-	printf(">>>end - begin: %d<<<\n", end - begin);
-	printf(">>>i: %d<<<\n", i);
-	printf(">>>dup 0: %d<<<\n", dup[0]);
-	printf(">>>dup end: %d<<<\n", dup[end - begin - 1]);*/
 	data->pivot_min = dup[0];
 	data->pivot_max = dup[end - begin - 1];
 	free(dup);

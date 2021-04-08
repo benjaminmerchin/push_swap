@@ -267,7 +267,6 @@ void	manage_half_on_b(t_data *data, int min, int max)
 	int pivot_min;
 	int pivot_max;
 	(void)min;
-	(void)max;
 
 	i = data->spliter;
 	pivot = median(data, data->spliter, data->size);

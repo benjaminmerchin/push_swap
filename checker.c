@@ -12,34 +12,6 @@
 
 #include "header.h"
 
-void	execute_instruction(t_data *data)
-{
-	if (data->buff[0] == 's' && data->buff[1] == 'a' && data->buff[2] == '\n')
-		sa(data);
-	else if (data->buff[0] == 's' && data->buff[1] == 'b' && data->buff[2] == '\n')
-		sb(data);
-	else if (data->buff[0] == 's' && data->buff[1] == 's' && data->buff[2] == '\n')
-		ss(data);
-	else if (data->buff[0] == 'p' && data->buff[1] == 'a' && data->buff[2] == '\n')
-		pa(data);
-	else if (data->buff[0] == 'p' && data->buff[1] == 'b' && data->buff[2] == '\n')
-		pb(data);
-	else if (data->buff[0] == 'r' && data->buff[1] == 'a' && data->buff[2] == '\n')
-		ra(data);
-	else if (data->buff[0] == 'r' && data->buff[1] == 'b' && data->buff[2] == '\n')
-		rb(data);
-	else if (data->buff[0] == 'r' && data->buff[1] == 'r' && data->buff[2] == '\n')
-		rr(data);
-	else if (data->buff[0] == 'r' && data->buff[1] == 'r' && data->buff[2] == 'a' && data->buff[3] == '\n')
-		rra(data);
-	else if (data->buff[0] == 'r' && data->buff[1] == 'r' && data->buff[2] == 'b' && data->buff[3] == '\n')
-		rrb(data);
-	else if (data->buff[0] == 'r' && data->buff[1] == 'r' && data->buff[2] == 'r' && data->buff[3] == '\n')
-		rrr(data);
-	else
-		data->error = 1;
-}
-
 void	ok_or_ko(t_data *data)
 {
 	int i;
@@ -66,13 +38,62 @@ void	ok_or_ko(t_data *data)
 	printf("\tNumber of Instructions: %d\n", data->instuctions);
 }
 
-int	main(int ac, char **av)
+int		main_extension_two(int ac, char **av, int i, char ***tab, t_data *data)
+{
+	char c;
+
+	while (read(0, &c, 1) > 0)
+	{
+		data->buff[i] = c;
+		i++;
+		if (c == '\n')
+		{
+			i = 0;
+			data->instuctions++;
+			execute_instruction(data);
+		}
+		if (data->error)
+			return(ft_free_print_error(data, ac, av, tab));
+	}
+	ok_or_ko(data);
+	free(data->list);
+	if (ac == 2)
+		ft_free(*tab, ft_nbr_str(av[1], ' '));
+	return (0);
+}
+
+int		main_extension(int ac, char **av, int i, char ***tab, t_data *data)
+{
+	if (!(data->list = malloc(sizeof(int) * data->size)))
+		return (free_tab_print_error(ac, av, tab));
+	while (i > 0)
+	{
+		if (ac == 2)
+		{
+			data->list[data->spliter - i] = ft_atoi((*tab)[i - 1], data);
+			security_duplicates(data, data->spliter - i);
+		}
+		else
+		{
+			data->list[ac - i - 1] = ft_atoi(av[i], data);
+			security_duplicates(data, ac - i - 1);
+		}
+		if (data->error == 1)
+			return(ft_free_print_error(data, ac, av, tab));
+		i--;
+	}
+	i = 0;
+	data->instuctions = 0;
+	return (main_extension_two(ac, av, i, tab, data));
+}
+
+int		main(int ac, char **av)
 {
 	int i;
-	char c;
 	t_data data;
 	char **tab;
 	
+	tab = NULL;
 	data.error = 0;
 	data.rrr = 0;
 	if (ac == 1)
@@ -92,46 +113,5 @@ int	main(int ac, char **av)
 		data.spliter = i;
 		data.size = i;
 	}
-	if (!(data.list = malloc(sizeof(int) * data.size)))
-		return (free_tab_print_error(ac, av, &tab));
-	while (i > 0)
-	{
-		if (ac == 2)
-		{
-			data.list[data.spliter - i] = ft_atoi(tab[i - 1], &data);
-			security_duplicates(&data, data.spliter - i);
-		}
-		else
-		{
-			data.list[ac - i - 1] = ft_atoi(av[i], &data);
-			security_duplicates(&data, ac - i - 1);
-		}
-		if (data.error == 1)
-			return(ft_free_print_error(&data, ac, av, &tab));
-		i--;
-	}
-	//print_state(&data);
-	//ft_putstr("---------------------------\n");
-	i = 0;
-	data.instuctions = 0;
-	while (read(0, &c, 1) > 0)
-	{
-		data.buff[i] = c;
-		i++;
-		if (c == '\n')
-		{
-			i = 0;
-			data.instuctions++;
-			execute_instruction(&data);
-		}
-		if (data.error)
-			return(ft_free_print_error(&data, ac, av, &tab));
-	}
-	//ft_putstr("---------------------------\n");
-	//print_state(&data);
-	ok_or_ko(&data);
-	free(data.list);
-	if (ac == 2)
-		ft_free(tab, ft_nbr_str(av[1], ' '));
-	return (0);
+	return (main_extension(ac, av, i, &tab, &data));
 }

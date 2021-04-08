@@ -114,5 +114,7 @@ void			rotate_remainer(t_data *data, int pivot);
 void			raw_optimize(t_data *data, int *i);
 void			rraw_optimize(t_data *data, int *i);
 
+void	execute_instruction(t_data *data);
+
 
 #endif
