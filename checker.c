@@ -50,7 +50,7 @@ int		main_extension_two(int ac, char **av, int i, char ***tab, t_data *data)
 		{
 			i = 0;
 			data->instuctions++;
-			execute_instruction(data);
+			execute_instruction_checker(data);
 		}
 		if (data->error)
 			return(ft_free_print_error(data, ac, av, tab));

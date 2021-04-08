@@ -112,19 +112,18 @@ void			rotate_remainer(t_data *data, int pivot);
 void			raw_optimize(t_data *data, int *i);
 void			rraw_optimize(t_data *data, int *i);
 
-void			execute_instruction(t_data *data);
+void			execute_instruction_checker(t_data *data);
 
 void			push_half_b(t_data *data, int pivot);
 void			push_half_a(t_data *data, int pivot);
 
-void	insersion_sort_b(t_data *data, int min, int max);
-void	manage_half_on_b_sub_sublevel(t_data *data, int min, int max);
-void	manage_half_on_b_sublevel(t_data *data, int min, int max);
-void	manage_half_on_b(t_data *data, int min, int max);
+void			insersion_sort_b(t_data *data, int min, int max);
+void			manage_half_on_b_sub_sublevel(t_data *data, int min, int max);
+void			manage_half_on_b_sublevel(t_data *data, int min, int max);
+void			manage_half_on_b(t_data *data, int min, int max);
 
-
-void	find_farthest_pos_b(t_data *data);
-void	calculate_best_move(t_data *data);
-void	execute_best_move_b(t_data *data, int min, int max);
+void			find_farthest_pos_b(t_data *data);
+void			calculate_best_move(t_data *data);
+void			execute_best_move_b(t_data *data, int min, int max);
 
 #endif

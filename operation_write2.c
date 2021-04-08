@@ -12,51 +12,49 @@
 
 #include "header.h"
 
-void	saw(t_data *data)
+void	raw(t_data *data)
 {
+	int i;
 	int temp;
-
+	
+	i = data->spliter - 1;
 	if (data->spliter < 2)
 		return ;
-	temp = data->list[data->spliter - 1];
-	data->list[data->spliter - 1] = data->list[data->spliter - 2];
-	data->list[data->spliter - 2] = temp;
+	temp = data->list[i];
+	while (i > 0)
+	{
+		data->list[i] = data->list[i - 1];
+		i--;
+	}
+	data->list[i] = temp;
 	if (data->rrr == 0)
-		ft_putstr("sa\n");
+		ft_putstr("ra\n");
 }
 
-void	sbw(t_data *data)
+void	rbw(t_data *data)
 {
+	int i;
 	int temp;
-
-	if (data->spliter - data->size < 2)
+	
+	i = data->spliter;
+	if (data->size - data->spliter < 2)
 		return ;
-	temp = data->list[data->spliter];
-	data->list[data->spliter] = data->list[data->spliter + 1];
-	data->list[data->spliter + 1] = temp;
-	if (data->rrr == 0)	
-		ft_putstr("sb\n");
+	temp = data->list[i];
+	while (i < data->size - 1)
+	{
+		data->list[i] = data->list[i + 1];
+		i++;
+	}
+	data->list[i] = temp;
+	if (data->rrr == 0)
+		ft_putstr("rb\n");
 }
 
-void	ssw(t_data *data)
+void	rrw(t_data *data)
 {
 	data->rrr = 1;
-	saw(data);
-	sbw(data);
+	raw(data);
+	rbw(data);
 	data->rrr = 0;
-	ft_putstr("ss\n");
-}
-
-void	paw(t_data *data)
-{
-	if (data->spliter < data->size)
-		data->spliter++;
-	ft_putstr("pa\n");
-}
-
-void	pbw(t_data *data)
-{
-	if (data->spliter > 0)
-		data->spliter--;
-	ft_putstr("pb\n");
+	ft_putstr("rr\n");
 }

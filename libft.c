@@ -48,7 +48,8 @@ int	ft_atoi(const char *str, t_data *data)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 		nbr = nbr * 10 + str[i++] - '0';
-	if (i == 0 || (i == 1 && sign == -1) || nbr * sign > 2147483647 || nbr * sign < -2147483648)
+	if (i == 0 || (i == 1 && sign == -1) || nbr * sign > 2147483647
+	|| nbr * sign < -2147483648)
 		data->error = 1;
 	return (nbr * sign);
 }

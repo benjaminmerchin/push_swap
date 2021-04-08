@@ -33,7 +33,7 @@ void	execute_instruction_2(t_data *data)
 		data->error = 1;
 }
 
-void	execute_instruction(t_data *data)
+void	execute_instruction_checker(t_data *data)
 {
 	if (data->buff[0] == 's' && data->buff[1] == 'a' && data->buff[2] == '\n')
 		sa(data);
