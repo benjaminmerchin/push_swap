@@ -12,6 +12,35 @@
 
 #include "header.h"
 
+void	push_half_b(t_data *data, int pivot)
+{
+	int i;
+	
+	i = 0;
+	while (i < data->size)
+	{
+		if (data->list[data->spliter - 1] < pivot)
+			pbw(data);
+		else
+			raw(data);
+		i++;
+	}
+}
+void	push_half_a(t_data *data, int pivot)
+{
+	int i;
+
+	i = 0;
+	while (i < data->size)
+	{
+		if (data->list[data->spliter] >= pivot)
+			paw(data);
+		else
+			rbw(data);
+		i++;
+	}
+}
+
 void	find_farthest_pos_b(t_data *data)
 {
 	int i;
@@ -291,26 +320,16 @@ void	manage_half_on_b(t_data *data, int min, int max)
 	manage_half_on_b_sublevel(data, pivot, pivot_max);
 }
 
-
 void	quick_sort_ultimate(t_data *data)
 {
-	int i;
 	int pivot;
 	int pivot_min;
 	int pivot_max;
 
-	i = 0;
 	pivot = median(data, 0, data->size);
 	pivot_min = data->pivot_min;
 	pivot_max = data->pivot_max;
-	while (i < data->size)
-	{
-		if (data->list[data->spliter - 1] < pivot)
-			pbw(data);
-		else
-			raw(data);
-		i++;
-	}
+	push_half_b(data, pivot);
 	print_state(data);
 	manage_half_on_b(data, pivot_min, pivot - 1);
 	print_state(data);
@@ -326,19 +345,10 @@ void	quick_sort_ultimate(t_data *data)
 
 void	quick_sort(t_data *data)
 {
-	int i;
 	int pivot;
 
-	i = 0;
 	pivot = median(data, 0, data->size);
-	while (i < data->size)
-	{
-		if (data->list[data->spliter - 1] < pivot)
-			pbw(data);
-		else
-			raw(data);
-		i++;
-	}
+	push_half_b(data, pivot);
 	print_state(data);
 	insersion_sort_b(data, data->pivot_min, pivot);
 	print_state(data);

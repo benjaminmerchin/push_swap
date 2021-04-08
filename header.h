@@ -21,25 +21,25 @@
 # define ALWAYS_PRINT 0
 
 typedef	struct	s_data {
-	int		*list; // la liste qui contiens les variables a trier
-	int		spliter; // la limite sur la liste ou on change de pile
-	int		size; // taille de la liste, egal a spliter initialement
-	char	buff[4]; // pour ranger les instruction du checker
-	int		error; // si une entree d'instructions est fausse
-	int		instuctions; //nombre d'instructions
-	int		rrr; //si on mutualise les rotations
+	int		*list;
+	int		spliter;
+	int		size;
+	char	buff[4];
+	int		error;
+	int		instuctions;
+	int		rrr;
 
-	int		pivot; //le pivot pour insertion sort
-	int		rotation; //nombre de rotations a faire pour remonter le bon chiffre a push
-	int		direction; //direction de la rotation a faire //1 ou -1
-	int		moving; //direction du dernier mouvement
-	int		relative; //position par rapport au pivot
-	int		last_relative; //ancien data->relative
-	int		relative_up; //position par rapport au pivot
-	int		relative_down; //position par rapport au pivot
-	int		pivot_max; //valeur max dans la range du pivot
-	int		pivot_min; //valeur mun pour la range du pivot
-	int		too_small; //si la liste restante est plus petite que 4
+	int		pivot;
+	int		rotation;
+	int		direction;
+	int		moving;
+	int		relative;
+	int		last_relative;
+	int		relative_up;
+	int		relative_down;
+	int		pivot_max;
+	int		pivot_min;
+	int		too_small;
 
 	int	above_pos;
 	int	a_pos;
@@ -53,9 +53,7 @@ typedef	struct	s_data {
 
 	int		lock_a;
 	int		lock_b;
-	int		val; //valeur de ce qu'on bouge
-
-
+	int		val;
 	int		bool_first_move;
 }				t_data;
 
@@ -114,7 +112,6 @@ void			rotate_remainer(t_data *data, int pivot);
 void			raw_optimize(t_data *data, int *i);
 void			rraw_optimize(t_data *data, int *i);
 
-void	execute_instruction(t_data *data);
-
+void			execute_instruction(t_data *data);
 
 #endif

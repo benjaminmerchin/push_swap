@@ -12,7 +12,7 @@
 
 #include "header.h"
 
-void	saw(t_data *data) // on souhaite inverser l'emplacement data_spliter - 1 avec data_spliter - 2
+void	saw(t_data *data)
 {
 	int temp;
 
@@ -25,7 +25,7 @@ void	saw(t_data *data) // on souhaite inverser l'emplacement data_spliter - 1 av
 		ft_putstr("sa\n");
 }
 
-void	sbw(t_data *data) // on souhaite inverser l'emplacement data_spliter avec data_spliter + 1
+void	sbw(t_data *data)
 {
 	int temp;
 
