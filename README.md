@@ -9,16 +9,16 @@ ARG=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./check
 ```
 
 ## Flags implemented:
-./checker -n $ARG : Display the number of operations
-./checker -c $ARG : Display with colors
-./checker -f $ARG : Display an animation of the two piles
+./checker -n $ARG : Display the number of operations  
+./checker -c $ARG : Display with colors  
+./checker -f $ARG : Display an animation of the two piles  
 ./push_swap -p $ARG : Display stages on the stack at some key stages
 
 ## Examples with flag:
 ```
 ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker -n -f -c $ARG
 ```
-<img src="images/make_test.png">
+<img src="images/AB.png">
 <img src="images/result.png">
 
 
