@@ -13,6 +13,26 @@
 #include "header.h"
 #include <time.h>
 
+void	printf_color(char *s, t_data *data)
+{
+	(void)data;
+	if (!s)
+		return ;
+	if (data->color && data->coloration == 31)
+		printf("\033[0;31m");
+	else if (data->color && data->coloration == 32)
+		printf("\033[0;32m");
+	else if (data->color && data->coloration == 34)
+		printf("\033[0;34m");
+	else if (data->color && data->coloration == 35)
+		printf("\033[0;35m");
+	else if (data->color && data->coloration == 36)
+		printf("\033[0;36m");
+	printf("%s", s);
+	if (data->color)
+		printf("\033[0m");
+}
+
 void	print_state_fancy(t_data *data)
 {
 	int i;
@@ -21,17 +41,18 @@ void	print_state_fancy(t_data *data)
 	i = 0;
 	if (!data->fancy || data->size == 0)
 		return ;
-	ft_putstr("A: ");
+	printf("A: ");
 	while (i < data->size)
 	{
-		ft_putnbr(data->list[i]);
+		printf("%d", data->list[i]);
 		if (i == data->spliter - 1)
-			ft_putchar('|');
+			printf("|");
 		else
-			ft_putchar(' ');
+			printf(" ");
 		i++;
 	}
-	ft_putstr(":B");
+	printf(":B");
+	printf("\n");
 	while (i < 100000000)
 		i++;
 	clock_t start_time = clock();
@@ -39,7 +60,6 @@ void	print_state_fancy(t_data *data)
 	while (clock() < start_time + milli_seconds)
 		;
 	system("clear");
-	ft_putchar('\n');
 }
 
 void		manage_bonus2(t_data *data, int *ac, char ***av)

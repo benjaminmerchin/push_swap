@@ -23,7 +23,8 @@ void	sa(t_data *data)
 	data->list[data->spliter - 2] = temp;
 	if (data->aaa == 0 && data->fancy)
 	{
-		ft_putstr("sa\n");
+		data->coloration = 33;
+		printf_color("sa\n", data);
 		print_state_fancy(data);
 	}
 }
@@ -39,7 +40,8 @@ void	sb(t_data *data)
 	data->list[data->spliter + 1] = temp;
 	if (data->aaa == 0 && data->fancy)
 	{
-		ft_putstr("sb\n");
+		data->coloration = 33;
+		printf_color("sb\n", data);
 		print_state_fancy(data);
 	}
 }
@@ -52,7 +54,8 @@ void	ss(t_data *data)
 	data->aaa = 0;
 	if (data->fancy)
 	{
-		ft_putstr("ss\n");
+		data->coloration = 33;
+		printf_color("ss\n", data);
 		print_state_fancy(data);
 	}
 }
@@ -63,7 +66,8 @@ void	pa(t_data *data)
 		data->spliter++;
 	if (data->fancy)
 	{
-		ft_putstr("pa\n");
+		data->coloration = 31;
+		printf_color("pa\n", data);
 		print_state_fancy(data);
 	}
 }
@@ -74,7 +78,8 @@ void	pb(t_data *data)
 		data->spliter--;
 	if (data->fancy)
 	{
-		ft_putstr("pb\n");
+		data->coloration = 32;
+		printf_color("pb\n", data);
 		print_state_fancy(data);
 	}
 }

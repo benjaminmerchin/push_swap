@@ -29,7 +29,8 @@ void	ra(t_data *data)
 	data->list[i] = temp;
 	if (data->aaa == 0 && data->fancy)
 	{
-		ft_putstr("ra\n");
+		data->coloration = 36;
+		printf_color("ra\n", data);
 		print_state_fancy(data);
 	}
 }
@@ -51,7 +52,8 @@ void	rb(t_data *data)
 	data->list[i] = temp;
 	if (data->aaa == 0 && data->fancy)
 	{
-		ft_putstr("rb\n");
+		data->coloration = 36;
+		printf_color("rb\n", data);
 		print_state_fancy(data);
 	}
 }
@@ -64,7 +66,7 @@ void	rr(t_data *data)
 	data->aaa = 0;
 	if (data->fancy)
 	{
-		ft_putstr("rr\n");
+		printf_color("rr\n", data);
 		print_state_fancy(data);
 	}
 }
