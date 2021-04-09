@@ -99,7 +99,8 @@ void			ft_putstr(char *s);
 char			**ft_split(char const *s, char c);
 char			**ft_free(char **tab, int nbr);
 int				ft_nbr_str(char *s, char c);
-int				ft_free_print_error(t_data *data, int ac, char **av, char ***tab);
+int				ft_free_print_error(t_data *data, int ac,
+				char **av, char ***tab);
 void			security_duplicates(t_data *data, int i);
 int				already_sorted(t_data *data);
 int				free_tab_print_error(int ac, char **av, char ***tab);

@@ -35,8 +35,9 @@ void	printf_color(char *s, t_data *data)
 
 void	print_state_fancy(t_data *data)
 {
-	int i;
-	int milli_seconds;
+	int		i;
+	int		milli_seconds;
+	clock_t start_time;
 
 	i = 0;
 	if (!data->fancy || data->size == 0)
@@ -51,18 +52,17 @@ void	print_state_fancy(t_data *data)
 			printf(" ");
 		i++;
 	}
-	printf(":B");
-	printf("\n");
+	printf(":B\n");
 	while (i < 100000000)
 		i++;
-	clock_t start_time = clock();
+	start_time = clock();
 	milli_seconds = 1000 * 1;
 	while (clock() < start_time + milli_seconds)
 		;
 	system("clear");
 }
 
-void		manage_bonus2(t_data *data, int *ac, char ***av)
+void	manage_bonus2(t_data *data, int *ac, char ***av)
 {
 	if (*ac < 2)
 		return ;
@@ -91,7 +91,7 @@ void		manage_bonus2(t_data *data, int *ac, char ***av)
 	}
 }
 
-void		manage_bonus(t_data *data, int *ac, char ***av)
+void	manage_bonus(t_data *data, int *ac, char ***av)
 {
 	if (*ac < 2)
 		return ;
