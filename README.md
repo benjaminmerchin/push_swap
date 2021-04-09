@@ -4,7 +4,31 @@ Grade: 125%
 ## Compilation
 <img src="images/make_test.png">
 
-## Strategy 
+```
+ARG=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker -n $ARG
+```
+
+## Flags implemented:
+./checker -n $ARG : Display the number of operations
+./checker -c $ARG : Display with colors
+./checker -f $ARG : Display an animation of the two piles
+./push_swap -p $ARG : Display stages on the stack at some key stages
+
+## Examples with flag:
+```
+ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker -n -f -c $ARG
+```
+<img src="images/make_test.png">
+<img src="images/result.png">
+
+
+
+
+```
+RG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap -p $ARG
+```
+<img src="images/-p.png">
+
 
 ## Good ideas I think I had:
 - For the flag management, I stored the flag then dereferenced the pointer and called the flag management function again
