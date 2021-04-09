@@ -1,5 +1,7 @@
 # Hello, welcome to my push_swap !
 Grade: 125%
+For 500 : Average 5010
+For 100 : Average 660
 
 ## Compilation
 <img src="images/make_test.png">
