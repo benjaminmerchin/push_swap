@@ -1,7 +1,7 @@
 # Hello, welcome to my push_swap !
 Grade: 125%  
-For a list of 500: Average 5010 operations
-For a list of 100: Average 660 operations
+For a list of 500: Average 5010 operations  
+For a list of 100: Average 660 operations  
 
 ## Compilation
 <img src="images/make_test.png">
