@@ -25,7 +25,7 @@ $(NAME_C): $(OBJ_C)
 
 $(NAME_P): $(OBJ_P)
 	@$(CC) $(CFLAGS) $(OBJ_P) -o $(NAME_P)
-#	@echo 'Checker Compilation OK'
+#	@echo 'Push_swap Compilation OK'
 
 $(OBJDIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
