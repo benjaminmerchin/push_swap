@@ -27,7 +27,7 @@ ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checke
 
 
 ```
-RG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap -p $ARG
+ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"`; ./push_swap -p $ARG
 ```
 <img src="images/-p.png">
 
